@@ -94,7 +94,7 @@ uv run jb build .
    git add .
    git commit -m "Initial commit"
    git branch -M main
-   git remote add origin https://github.com/YOUR_USERNAME/icey_ecosystems.git
+   git remote add origin https://github.com/akpetty/icey_ecosystems.git
    git push -u origin main
    ```
 
@@ -107,7 +107,16 @@ source .venv/bin/activate  # On macOS/Linux
 jb build .
 
 # Deploy to GitHub Pages (this pushes to the gh-pages branch)
+# Note: Do NOT use -c flag unless you want a custom domain
+# This ensures no CNAME file is created
 ghp-import -n -p _build/html
+
+# If a CNAME file exists and you want to remove it, you can delete it manually:
+# git checkout gh-pages
+# git rm CNAME  # if it exists
+# git commit -m "Remove CNAME"
+# git push origin gh-pages
+# git checkout main
 
 # If you have a custom domain, use the -c flag:
 # ghp-import -n -p -c yourdomain.com _build/html
