@@ -1,0 +1,11 @@
+/* Custom CSS for icey_ecosystems Jupyter Book */
+
+/* Hide right sidebar table of contents */
+.bd-sidebar-secondary {
+    display: none !important;
+}
+
+/* Adjust main content width when right sidebar is hidden */
+.bd-main .bd-content {
+    max-width: 100% !important;
+}
