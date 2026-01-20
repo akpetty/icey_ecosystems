@@ -7,7 +7,7 @@ This Jupyter Book provides analysis and research on ice-based ecosystems. This p
 The `icey_ecosystems` repository contains code, data, and analysis notebooks for studying ice-based ecosystems. This work aims to advance our understanding of ecological processes in ice-dominated environments.
 
 ## Navigation
-- See the [Analysis notebook](content/1_analysis.html) for initial data exploration and analysis.
+- See the [Analysis notebook](1_analysis) for initial data exploration and analysis.
 
 ## More Content Coming Soon
 This book is under active development. Additional notebooks and analyses will be added in the future.

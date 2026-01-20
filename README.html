@@ -491,7 +491,7 @@ uv<span class="w"> </span>run<span class="w"> </span>jb<span class="w"> </span>b
 git<span class="w"> </span>add<span class="w"> </span>.
 git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Initial commit&quot;</span>
 git<span class="w"> </span>branch<span class="w"> </span>-M<span class="w"> </span>main
-git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>origin<span class="w"> </span>https://github.com/YOUR_USERNAME/icey_ecosystems.git
+git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>origin<span class="w"> </span>https://github.com/akpetty/icey_ecosystems.git
 git<span class="w"> </span>push<span class="w"> </span>-u<span class="w"> </span>origin<span class="w"> </span>main
 </pre></div>
 </div>
@@ -505,7 +505,16 @@ git<span class="w"> </span>push<span class="w"> </span>-u<span class="w"> </span
 jb<span class="w"> </span>build<span class="w"> </span>.
 
 <span class="c1"># Deploy to GitHub Pages (this pushes to the gh-pages branch)</span>
+<span class="c1"># Note: Do NOT use -c flag unless you want a custom domain</span>
+<span class="c1"># This ensures no CNAME file is created</span>
 ghp-import<span class="w"> </span>-n<span class="w"> </span>-p<span class="w"> </span>_build/html
+
+<span class="c1"># If a CNAME file exists and you want to remove it, you can delete it manually:</span>
+<span class="c1"># git checkout gh-pages</span>
+<span class="c1"># git rm CNAME  # if it exists</span>
+<span class="c1"># git commit -m &quot;Remove CNAME&quot;</span>
+<span class="c1"># git push origin gh-pages</span>
+<span class="c1"># git checkout main</span>
 
 <span class="c1"># If you have a custom domain, use the -c flag:</span>
 <span class="c1"># ghp-import -n -p -c yourdomain.com _build/html</span>
