@@ -1,0 +1,11 @@
+format: jb-book
+root: content/0_home
+parts:
+- caption: Analysis
+  chapters:
+  - file: content/1_analysis
+
+# More chapters will be added here in the future
+# - caption: Additional Analysis
+#   chapters:
+#   - file: content/2_future_notebook
