@@ -84,6 +84,44 @@ jb build .
 uv run jb build .
 ```
 
+#### Deploying to GitHub Pages
+
+**First, create the GitHub repository:**
+1. Go to [GitHub](https://github.com) and create a new repository named `icey_ecosystems`
+2. Initialize and push your code:
+   ```bash
+   git init
+   git add .
+   git commit -m "Initial commit"
+   git branch -M main
+   git remote add origin https://github.com/YOUR_USERNAME/icey_ecosystems.git
+   git push -u origin main
+   ```
+
+**Then, build and deploy the book:**
+```bash
+# Make sure the environment is activated
+source .venv/bin/activate  # On macOS/Linux
+
+# Build the book
+jb build .
+
+# Deploy to GitHub Pages (this pushes to the gh-pages branch)
+ghp-import -n -p _build/html
+
+# If you have a custom domain, use the -c flag:
+# ghp-import -n -p -c yourdomain.com _build/html
+```
+
+The flags mean:
+- `-n`: Don't use Jekyll processing
+- `-p`: Push to GitHub
+- `-c`: Create/update CNAME file for custom domain (optional)
+
+After running this, your book will be available at `https://YOUR_USERNAME.github.io/icey_ecosystems/`
+
+**Note:** Make sure GitHub Pages is enabled in your repository settings (Settings > Pages) and set to use the `gh-pages` branch.
+
 ### GeoCODES Integration Setup
 
 This project is integrated with the [GeoCODES portal](https://geocodes.earthcube.org/#/landing) to make it discoverable in the EarthCube search interface. The metadata is embedded in the landing page using JSON-LD format following the Science on Schema (SOS) pattern.

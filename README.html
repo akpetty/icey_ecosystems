@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css?v=d1acfb5c" />
@@ -371,6 +371,7 @@ document.write(`
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-the-uv-environment">Creating the UV Environment</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-as-jupyter-kernel">Adding as Jupyter Kernel</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#building-the-jupyter-book">Building the Jupyter Book</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#deploying-to-github-pages">Deploying to GitHub Pages</a></li>
 </ul>
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#geocodes-integration-setup">GeoCODES Integration Setup</a><ul class="nav section-nav flex-column">
@@ -479,6 +480,45 @@ jb<span class="w"> </span>build<span class="w"> </span>.
 uv<span class="w"> </span>run<span class="w"> </span>jb<span class="w"> </span>build<span class="w"> </span>.
 </pre></div>
 </div>
+</section>
+<section id="deploying-to-github-pages">
+<h4>Deploying to GitHub Pages<a class="headerlink" href="#deploying-to-github-pages" title="Link to this heading">#</a></h4>
+<p><strong>First, create the GitHub repository:</strong></p>
+<ol class="arabic">
+<li><p>Go to <a class="reference external" href="https://github.com">GitHub</a> and create a new repository named <code class="docutils literal notranslate"><span class="pre">icey_ecosystems</span></code></p></li>
+<li><p>Initialize and push your code:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>init
+git<span class="w"> </span>add<span class="w"> </span>.
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Initial commit&quot;</span>
+git<span class="w"> </span>branch<span class="w"> </span>-M<span class="w"> </span>main
+git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>origin<span class="w"> </span>https://github.com/YOUR_USERNAME/icey_ecosystems.git
+git<span class="w"> </span>push<span class="w"> </span>-u<span class="w"> </span>origin<span class="w"> </span>main
+</pre></div>
+</div>
+</li>
+</ol>
+<p><strong>Then, build and deploy the book:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Make sure the environment is activated</span>
+<span class="nb">source</span><span class="w"> </span>.venv/bin/activate<span class="w">  </span><span class="c1"># On macOS/Linux</span>
+
+<span class="c1"># Build the book</span>
+jb<span class="w"> </span>build<span class="w"> </span>.
+
+<span class="c1"># Deploy to GitHub Pages (this pushes to the gh-pages branch)</span>
+ghp-import<span class="w"> </span>-n<span class="w"> </span>-p<span class="w"> </span>_build/html
+
+<span class="c1"># If you have a custom domain, use the -c flag:</span>
+<span class="c1"># ghp-import -n -p -c yourdomain.com _build/html</span>
+</pre></div>
+</div>
+<p>The flags mean:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-n</span></code>: Don’t use Jekyll processing</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-p</span></code>: Push to GitHub</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-c</span></code>: Create/update CNAME file for custom domain (optional)</p></li>
+</ul>
+<p>After running this, your book will be available at <code class="docutils literal notranslate"><span class="pre">https://YOUR_USERNAME.github.io/icey_ecosystems/</span></code></p>
+<p><strong>Note:</strong> Make sure GitHub Pages is enabled in your repository settings (Settings &gt; Pages) and set to use the <code class="docutils literal notranslate"><span class="pre">gh-pages</span></code> branch.</p>
 </section>
 </section>
 <section id="geocodes-integration-setup">
@@ -615,6 +655,7 @@ uv<span class="w"> </span>run<span class="w"> </span>jb<span class="w"> </span>b
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-the-uv-environment">Creating the UV Environment</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-as-jupyter-kernel">Adding as Jupyter Kernel</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#building-the-jupyter-book">Building the Jupyter Book</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#deploying-to-github-pages">Deploying to GitHub Pages</a></li>
 </ul>
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#geocodes-integration-setup">GeoCODES Integration Setup</a><ul class="nav section-nav flex-column">
