@@ -1,0 +1,44 @@
+{% extends "!layout.html" %}
+
+{% block extrahead %}
+{{ super() }}
+<!-- JSON-LD metadata for GeoCODES integration -->
+<!-- Following Science on Schema.org (SOS) best practices: https://github.com/ESIPFed/science-on-schema.org -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@id": "https://akpetty.github.io/icey_ecosystems/",
+  "@type": "Dataset",
+  "name": "icey_ecosystems",
+  "description": "A research project for assessing icey ecosystems using ICESat-2 data. This project is part of an NSF-funded DeCODER mini research proposal.",
+  "url": "https://akpetty.github.io/icey_ecosystems/",
+  "keywords": [
+    "Geoscience",
+    "Ecosystems",
+    "Ice",
+    "EarthCube",
+    "Research",
+    "Ecology",
+    "ICESat-2",
+    "DeCODER"
+  ],
+  "creator": [
+    {
+      "@type": "Person",
+      "name": "Alek Petty"
+    }
+  ],
+  "datePublished": "2026-01-01",
+  "dateModified": "2026-01-20",
+  "license": "https://creativecommons.org/licenses/by/4.0/",
+  "publisher": {
+    "@type": "Organization",
+    "name": "EarthCube"
+  },
+  "includedInDataCatalog": {
+    "@type": "DataCatalog",
+    "name": "GeoCODES"
+  }
+}
+</script>
+{% endblock %}

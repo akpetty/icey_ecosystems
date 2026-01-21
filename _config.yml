@@ -1,14 +1,16 @@
 # Book settings
-title: Ice-Based Ecosystems Research
-author: Your Name
-copyright: "2025"  # Copyright year to be placed in the footer
+title: Exploring Icey Ecosystems Using ICESat-2 Data
+author: Alek Petty
+copyright: "2026"  # Copyright year to be placed in the footer
 
 repository:
-  url                       : https://github.com/YOUR_USERNAME/icey_ecosystems
+  url                       : https://github.com/akpetty/icey_ecosystems
   branch                    : main  
 
 sphinx:
   config:
+    # Custom template directory for JSON-LD injection
+    templates_path: ['_templates']
     # Better search
     html_search_language: 'en'
     html_search_options: {'type': 'default'}
