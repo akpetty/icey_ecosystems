@@ -98,8 +98,6 @@ Every page of this Jupyter Book includes structured
 
 After deploying the book to GitHub Pages, the metadata can be validated with:
 
-- [Google Rich Results Test](https://search.google.com/test/rich-results) —
-  checks whether Google can parse the structured data
 - [Schema.org Validator](https://validator.schema.org/) — checks full
   conformance against the Schema.org specification
 
