@@ -109,10 +109,6 @@
     "@type": "Organization",
     "name": "EarthCube"
   },
-  "includedInDataCatalog": {
-    "@type": "DataCatalog",
-    "name": "GeoCODES"
-  },
   "funder": {
     "@type": "Organization",
     "name": "National Science Foundation (NSF)"
@@ -423,9 +419,10 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scientific-approach">Scientific Approach</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#datasets">Datasets</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#navigation">Navigation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#future-directions">Future Directions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#potential-future-directions">Potential Future Directions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-the-book">Using the Book</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#geocodes-integration">GeoCODES Integration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discoverability-geocodes-integration">Discoverability &amp; GeoCODES Integration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#license">License</a></li>
 </ul>
             </nav>
@@ -442,17 +439,17 @@ document.write(`
 <h1>ICEY ECOSYSTEMS: Arctic Sea Ice Light Transmission For Ecosystem Dynamics: Analysis with cloud-based ICESat-2 and ERA5 (Earthmover) data<a class="headerlink" href="#icey-ecosystems-arctic-sea-ice-light-transmission-for-ecosystem-dynamics-analysis-with-cloud-based-icesat-2-and-era5-earthmover-data" title="Link to this heading">#</a></h1>
 <section id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Link to this heading">#</a></h2>
-<p>This Jupyter Book estimates <strong>under-ice photosynthetically active radiation (PAR)</strong>
-across the Arctic Ocean by combining satellite-derived sea ice properties with
+<p>This Jupyter Book has been created to showcase new estimates of <strong>under-ice photosynthetically active radiation (PAR)</strong>
+across the Arctic Ocean by combining satellite-derived sea ice thickness observations with
 atmospheric reanalysis data. Light beneath sea ice is a primary control on
 ice-algal and under-ice phytoplankton productivity, yet it is difficult to
 observe directly at basin scale. This project bridges that gap by coupling
-gridded ICESat-2 sea ice thickness and snow depth with ERA5 cloud cover inside a
+gridded ICESat-2/NSESOSIM sea ice thickness and snow depth estimates with ERA5 cloud cover inside a
 physically based Beer-Lambert light transmission model.</p>
 <p>The work is part of an NSF-funded DeCODER (Data and Computing Opportunities for
 Discovery and Exploration Research) mini research proposal focused on
 understanding ecological systems in ice environments, and contributes to the
-EarthCube GeoCODES initiative.</p>
+EarthCube GeoCODES initiative. A key additional focus is thus on incorporating appropriate schema into the html files to increase discoverability.</p>
 </section>
 <section id="scientific-approach">
 <h2>Scientific Approach<a class="headerlink" href="#scientific-approach" title="Link to this heading">#</a></h2>
@@ -466,9 +463,9 @@ orbital geometry for a given latitude and day of year.</p></li>
 using ERA5 total cloud cover and an empirical power-law parameterisation.</p></li>
 <li><p><strong>Multi-surface-type Beer-Lambert model</strong> — each ice-covered grid cell is
 partitioned into snow-covered ice, bare ice, and melt-pond sub-areas, each
-with distinct albedo, surface transmittance, and extinction properties.
-Transmitted radiation through each sub-area is computed via exponential decay
-through the snow and ice layers.</p></li>
+with distinct albedo, surface transmittance, and extinction properties that can be tweaked by the user.
+Transmitted radiation through each 25 km x 25 km grid-cell ea is computed via exponential decay
+through the snow and ice.</p></li>
 <li><p><strong>Grid-cell PAR</strong> — the ice-area transmittances are weighted by their
 respective fractions, combined with an open-water contribution scaled by sea
 ice concentration, and converted to PAR using a broadband-to-PAR ratio.</p></li>
@@ -488,12 +485,12 @@ provides reliable thickness retrievals (SIC ≥ 0.5 by default).</p>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><strong>ICESat-2 IS2SIT_SUMMER</strong> (monthly, 25 km EASE2 grid)</p></td>
+<tr class="row-even"><td><p><strong>ICESat-2 IS2SIT_SUMMER</strong> (monthly, 25 km x 25 km North Polar Stereographic grid, Petty et al., 2025a, 2025b)</p></td>
 <td><p>Sea ice thickness, snow depth, sea ice concentration, freeboard</p></td>
 <td><p>NSIDC / NASA</p></td>
 <td><p>S3 Zarr store (<code class="docutils literal notranslate"><span class="pre">s3://icesat-2-sea-ice-us-west-2/</span></code>)</p></td>
 </tr>
-<tr class="row-odd"><td><p><strong>ICESat-2 IS2SITMOGR4 V4</strong> (monthly, 25 km EASE2 grid)</p></td>
+<tr class="row-odd"><td><p><strong>ICESat-2 IS2SITMOGR4 V4</strong> (monthly, 25 km x 25 km North Polar Stereographic grid, Petty et al., 2023, 2025c)</p></td>
 <td><p>Same variables, winter months (Nov–Apr, 2018–2025)</p></td>
 <td><p>NSIDC / NASA</p></td>
 <td><p>S3 Zarr store</p></td>
@@ -518,30 +515,58 @@ Beer-Lambert model, multi-year comparison maps, high-transmission region
 identification, and summary statistics.</p></li>
 </ul>
 </section>
-<section id="future-directions">
-<h2>Future Directions<a class="headerlink" href="#future-directions" title="Link to this heading">#</a></h2>
+<section id="potential-future-directions">
+<h2>Potential Future Directions<a class="headerlink" href="#potential-future-directions" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p>Replace broadband extinction with wavelength-dependent coefficients</p></li>
-<li><p>Use satellite-derived melt-pond fraction maps (e.g. MODIS) instead of a fixed value</p></li>
-<li><p>Extend to a full May–August seasonal cycle to capture the spring bloom window</p></li>
-<li><p>Validate modeled under-ice PAR against buoy-based observations</p></li>
-<li><p>Differentiate first-year vs. multi-year ice optical properties</p></li>
+<li><p>Replace broadband extinction with wavelength-dependent coefficients.</p></li>
+<li><p>Use satellite-derived melt-pond fraction or albedo estimates from remote sensing estimates, instead of a fixed value.</p></li>
+<li><p>Extend to a full May–August seasonal cycle to capture the spring bloom window.</p></li>
+<li><p>Validate modeled under-ice PAR against buoy-based observations.</p></li>
+<li><p>Differentiate first-year vs. multi-year ice optical properties.</p></li>
 </ul>
 </section>
 <section id="using-the-book">
 <h2>Using the Book<a class="headerlink" href="#using-the-book" title="Link to this heading">#</a></h2>
 <p>There are three ways to use this Jupyter Book:</p>
 <ol class="arabic simple">
-<li><p><strong>Browse</strong> — view the rendered notebooks by clicking through the links on the left.</p></li>
+<li><p><strong>Browse</strong> — view the rendered notebook/s by clicking through the links on the left.</p></li>
 <li><p><strong>Binder</strong> — run the notebooks interactively by clicking the <strong>Binder</strong> tab under the rocket ship icon at the top of each notebook.</p></li>
-<li><p><strong>Local</strong> — clone (or fork) the <a class="reference external" href="https://github.com/akpetty/icey_ecosystems">GitHub repository</a> and run locally with <code class="docutils literal notranslate"><span class="pre">uv</span> <span class="pre">sync</span></code> to set up the environment.</p></li>
+<li><p><strong>Local</strong> — clone (or fork) the <a class="reference external" href="https://github.com/akpetty/icey_ecosystems">GitHub repository</a> and run locally with <code class="docutils literal notranslate"><span class="pre">uv</span> <span class="pre">sync</span></code> to set up the environment (see GitHub README for more information on UV and environments).</p></li>
 </ol>
 </section>
-<section id="geocodes-integration">
-<h2>GeoCODES Integration<a class="headerlink" href="#geocodes-integration" title="Link to this heading">#</a></h2>
-<p>This project is integrated with the
-<a class="reference external" href="https://geocodes.earthcube.org/#/landing">GeoCODES portal</a> to make it
-discoverable in the EarthCube search interface.</p>
+<section id="discoverability-geocodes-integration">
+<h2>Discoverability &amp; GeoCODES Integration<a class="headerlink" href="#discoverability-geocodes-integration" title="Link to this heading">#</a></h2>
+<p>This project follows <a class="reference external" href="https://github.com/ESIPFed/science-on-schema.org">Science on Schema.org (SOS)</a>
+best practices to increase discoverabilty through search engines and the
+<a class="reference external" href="https://geocodes.earthcube.org/#/landing">GeoCODES portal</a>.</p>
+<p>Every page of this Jupyter Book includes structured
+<a class="reference external" href="https://json-ld.org/">JSON-LD</a> metadata (via a custom Sphinx template) using the
+<code class="docutils literal notranslate"><span class="pre">SoftwareSourceCode</span></code> schema type. The metadata includes:</p>
+<ul class="simple">
+<li><p>Project description, URL, and code repository link</p></li>
+<li><p>Domain-specific keywords (Arctic, sea ice, ICESat-2, ERA5, under-ice PAR,
+Beer-Lambert, melt ponds, phytoplankton, ice algae, etc.)</p></li>
+<li><p>Creator, publisher (EarthCube), and funder (NSF)</p></li>
+<li><p>License (MIT)</p></li>
+</ul>
+<p>After deploying the book to GitHub Pages, the metadata can be validated with:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://search.google.com/test/rich-results">Google Rich Results Test</a> —
+checks whether Google can parse the structured data</p></li>
+<li><p><a class="reference external" href="https://validator.schema.org/">Schema.org Validator</a> — checks full
+conformance against the <a class="reference external" href="http://Schema.org">Schema.org</a> specification</p></li>
+</ul>
+<p>See the <a class="reference external" href="https://github.com/akpetty/icey_ecosystems">GitHub README</a> for
+instructions on maintaining the JSON-LD when the project scope or datasets
+change.</p>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h2>
+<p>Petty, A. A., A. Cabaj, J. Landy (2025a), Initial assessment of all-season Arctic sea ice thickness from ICESat-2, Journal of Glaciology, 1-39, doi: 10.1017/jog.2025.10119.</p>
+<p>Petty, A. A. (2025b), Monthly gridded summer Arctic sea ice thickness from ICESat-2, v1 [Data set], Zenodo, doi: 10.5281/zenodo.15375596.</p>
+<p>Petty, A. A., N. Kurtz, R. Kwok, T. Markus, T. A. Neumann, N. Keeney and A. Cabaj (2025c), ICESat-2 L4 Monthly Gridded Sea Ice Thickness, Version 4. [Indicate subset used]. Boulder, Colorado USA. NASA National Snow and Ice Data Center Distributed Active Archive Center. doi: 10.5067/TXDHDJ1JT0CG.</p>
+<p>Petty A. A., N. Keeney, A. Cabaj, P. Kushner, M. Bagnardi (2023), Winter Arctic sea ice thickness from ICESat-2: upgrades to freeboard and snow loading estimates and an assessment of the first three winters of data collection, The Cryosphere, 17, 127–156, doi: 10.5194/tc-17-127-2023.</p>
+<p>McHenry K, Bobak M, Coakley K, Fils D, Gatzke L, Zhang B, Kooper R, Richard S, Valentine D, Zaslavsky I, Shepherd, A &amp; Lingerfelt E. (2021). GeoCODES. EarthCube. <a class="reference external" href="https://geocodes.earthcube.org">https://geocodes.earthcube.org</a>.</p>
 </section>
 <section id="license">
 <h2>License<a class="headerlink" href="#license" title="Link to this heading">#</a></h2>
@@ -610,9 +635,10 @@ discoverable in the EarthCube search interface.</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scientific-approach">Scientific Approach</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#datasets">Datasets</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#navigation">Navigation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#future-directions">Future Directions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#potential-future-directions">Potential Future Directions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-the-book">Using the Book</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#geocodes-integration">GeoCODES Integration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discoverability-geocodes-integration">Discoverability &amp; GeoCODES Integration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#license">License</a></li>
 </ul>
   </nav></div>
