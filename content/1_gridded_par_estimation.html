@@ -1,0 +1,1346 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>1. Gridded under-ice PAR estimation with ICESat-2/ERA5 &#8212; Icey Ecosystems with ICESat-2 sea ice and ERA5 reanalysis data</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=d1acfb5c" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/1_gridded_par_estimation';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="ICEY ECOSYSTEMS: Arctic Sea Ice Light Transmission For Assessing Under-Ice Ecosystem Dynamics" href="0_home.html" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+<!-- JSON-LD metadata for GeoCODES integration -->
+<!-- Following Science on Schema.org (SOS) best practices: https://github.com/ESIPFed/science-on-schema.org -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@id": "https://akpetty.github.io/icey_ecosystems/",
+  "@type": "SoftwareSourceCode",
+  "name": "icey_ecosystems",
+  "description": "Estimating under-ice photosynthetically active radiation (PAR) across the Arctic by coupling ICESat-2 sea ice thickness and snow depth with ERA5 cloud cover in a Beer-Lambert light transmission model.",
+  "url": "https://akpetty.github.io/icey_ecosystems/",
+  "codeRepository": "https://github.com/akpetty/icey_ecosystems",
+  "programmingLanguage": "Python",
+  "keywords": [
+    "Arctic",
+    "sea ice",
+    "ICESat-2",
+    "ERA5",
+    "under-ice PAR",
+    "light transmission",
+    "Beer-Lambert",
+    "sea ice thickness",
+    "snow depth",
+    "melt ponds",
+    "phytoplankton",
+    "ice algae",
+    "EarthCube",
+    "DeCODER",
+    "Geoscience"
+  ],
+  "creator": [
+    {
+      "@type": "Person",
+      "name": "Alek Petty"
+    }
+  ],
+  "datePublished": "2026-01-01",
+  "dateModified": "2026-03-17",
+  "license": "https://opensource.org/licenses/MIT",
+  "publisher": {
+    "@type": "Organization",
+    "name": "EarthCube"
+  },
+  "funder": {
+    "@type": "Organization",
+    "name": "National Science Foundation (NSF)"
+  }
+}
+</script>
+
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="0_home.html">
+                    ICEY ECOSYSTEMS: Arctic Sea Ice Light Transmission For Assessing Under-Ice Ecosystem Dynamics
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Analysis</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">1. Gridded under-ice PAR estimation with ICESat-2/ERA5</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/akpetty/icey_ecosystems/main?urlpath=tree/content/1_gridded_par_estimation.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Binder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Binder logo" src="../_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/akpetty/icey_ecosystems" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/akpetty/icey_ecosystems/edit/main/content/1_gridded_par_estimation.ipynb" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/akpetty/icey_ecosystems/issues/new?title=Issue%20on%20page%20%2Fcontent/1_gridded_par_estimation.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/content/1_gridded_par_estimation.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>1. Gridded under-ice PAR estimation with ICESat-2/ERA5</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-and-imports">Setup and imports</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#read-icesat-2-sea-ice-thickness">1. Read ICESat-2 sea ice thickness</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#b-quick-look-maps-for-the-selected-month">1b. Quick-look maps for the selected month</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#read-era5-cloud-cover-from-earthmover">2. Read ERA5 cloud cover from Earthmover</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variable-selection-multi-year-light-transmission-loop">3. Variable selection &amp; multi-year light transmission loop</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#beer-lambert-light-transmission-model-with-albedo-melt-ponds">4. Beer-Lambert light transmission model with albedo &amp; melt ponds</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#compare-inputs-and-outputs-across-years">5. Compare inputs and outputs across years</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#identify-high-transmission-regions-across-years-pack-ice">6. Identify high-transmission regions across years (pack ice)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-statistics-year-by-year-comparison-pack-ice-sic-sic-min">7. Summary statistics — year-by-year comparison (pack ice, SIC ≥ <code class="docutils literal notranslate"><span class="pre">SIC_MIN</span></code>)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretation">Interpretation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps">Next steps</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="gridded-under-ice-par-estimation-with-icesat-2-era5">
+<h1>1. Gridded under-ice PAR estimation with ICESat-2/ERA5<a class="headerlink" href="#gridded-under-ice-par-estimation-with-icesat-2-era5" title="Link to this heading">#</a></h1>
+<p><strong>Goal</strong>: Combine ICESat-2 sea ice thickness and snow depth with ERA5 cloud cover to estimate
+under-ice light availability using a simple Beer-Lambert transmission model.</p>
+<p>This notebook:</p>
+<ol class="arabic simple">
+<li><p>Reads ICESat-2 monthly gridded sea ice thickness and ancillary state data, from S3 (Zarr) — <strong>summer</strong> (IS2SIT_SUMMER, 2019–2021) by default</p></li>
+<li><p>Reads ERA5 total cloud cover from the <a class="reference external" href="https://app.earthmover.io/marketplace/695bff20622fd82a1ec88780">Earthmover catalog</a></p></li>
+<li><p>Applies a two-layer (snow + ice) exponential light-decay model</p></li>
+<li><p><strong>Compares</strong> under-ice PAR across the three available summers for a chosen month (default: June)</p></li>
+<li><p>Maps high-transmission regions and summarises year-to-year differences</p></li>
+</ol>
+<p>Change <code class="docutils literal notranslate"><span class="pre">ANALYSIS_MONTH</span></code> in Section 1 to switch between May (5), June (6), or July (7).
+Set <code class="docutils literal notranslate"><span class="pre">SEASON</span> <span class="pre">=</span> <span class="pre">&quot;winter&quot;</span></code> in Section 1 to load the winter dataset instead.</p>
+<section id="setup-and-imports">
+<h2>Setup and imports<a class="headerlink" href="#setup-and-imports" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.gridspec</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gridspec</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">cartopy.crs</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ccrs</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">cartopy.feature</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cfeature</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">utils</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">read_is2sitmogr4_v4</span><span class="p">,</span>
+    <span class="n">read_is2sit_summer</span><span class="p">,</span>
+    <span class="n">read_era5_earthmover</span><span class="p">,</span>
+    <span class="n">regrid_era5_to_is2</span><span class="p">,</span>
+    <span class="n">daily_mean_toa_insolation</span><span class="p">,</span>
+    <span class="n">add_arctic_features</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;figure.dpi&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">150</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;font.size&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">10</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="read-icesat-2-sea-ice-thickness">
+<h2>1. Read ICESat-2 sea ice thickness<a class="headerlink" href="#read-icesat-2-sea-ice-thickness" title="Link to this heading">#</a></h2>
+<p>Two datasets are available on the same 25 km EASE2 grid:</p>
+<ul class="simple">
+<li><p><strong>Winter</strong> (IS2SITMOGR4 V4): Nov 2018 – Apr 2025</p></li>
+<li><p><strong>Summer</strong> (IS2SIT_SUMMER): May 2019 – Aug 2021</p></li>
+</ul>
+<p>Set <code class="docutils literal notranslate"><span class="pre">SEASON</span></code> below to choose which one to load.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">SEASON</span> <span class="o">=</span> <span class="s2">&quot;summer&quot;</span>  <span class="c1"># &quot;winter&quot; or &quot;summer&quot;</span>
+
+<span class="k">if</span> <span class="n">SEASON</span> <span class="o">==</span> <span class="s2">&quot;winter&quot;</span><span class="p">:</span>
+    <span class="n">is2_ds</span> <span class="o">=</span> <span class="n">read_is2sitmogr4_v4</span><span class="p">()</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">is2_ds</span> <span class="o">=</span> <span class="n">read_is2sit_summer</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">is2_ds</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;xarray.Dataset&gt; Size: 16kB
+Dimensions:                         (time: 5, y: 5, x: 5)
+Coordinates:
+  * time                            (time) datetime64[ns] 40B 2019-05-01 ... ...
+  * y                               (y) float32 20B 5.838e+06 ... 5.738e+06
+  * x                               (x) float32 20B -3.838e+06 ... -3.738e+06
+    latitude                        (y, x) float32 100B 31.1 31.2 ... 32.08
+    longitude                       (y, x) float32 100B 168.3 168.1 ... 168.1
+Data variables: (12/33)
+    crs                             (time) int32 20B dask.array&lt;chunksize=(5,), meta=np.ndarray&gt;
+    freeboard                       (time, y, x) float32 500B dask.array&lt;chunksize=(3, 5, 5), meta=np.ndarray&gt;
+    freeboard_int                   (time, y, x) float32 500B dask.array&lt;chunksize=(3, 5, 5), meta=np.ndarray&gt;
+    ice_density                     (time, y, x) float32 500B dask.array&lt;chunksize=(3, 5, 5), meta=np.ndarray&gt;
+    ice_density_j22                 (time, y, x) float32 500B dask.array&lt;chunksize=(3, 5, 5), meta=np.ndarray&gt;
+    ice_thickness_sm_e5             (time, y, x) float32 500B dask.array&lt;chunksize=(3, 5, 5), meta=np.ndarray&gt;
+    ...                              ...
+    snow_depth_sm_e5                (time, y, x) float32 500B dask.array&lt;chunksize=(3, 5, 5), meta=np.ndarray&gt;
+    snow_depth_sm_e5_int            (time, y, x) float32 500B dask.array&lt;chunksize=(3, 5, 5), meta=np.ndarray&gt;
+    snow_depth_sm_m2                (time, y, x) float32 500B dask.array&lt;chunksize=(3, 5, 5), meta=np.ndarray&gt;
+    snow_depth_sm_m2_int            (time, y, x) float32 500B dask.array&lt;chunksize=(3, 5, 5), meta=np.ndarray&gt;
+    snow_depth_w99r                 (time, y, x) float32 500B dask.array&lt;chunksize=(3, 5, 5), meta=np.ndarray&gt;
+    snow_depth_w99r_int             (time, y, x) float32 500B dask.array&lt;chunksize=(3, 5, 5), meta=np.ndarray&gt;
+Attributes:
+    contact:      Alek Petty (akpetty@umd.edu)
+    description:  Preliminary monthly gridded summer (May to August) Arctic s...
+    history:      Created 23/07/25
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ice_var</span> <span class="o">=</span> <span class="s2">&quot;ice_thickness_sm_m2_int&quot;</span>
+<span class="n">snow_var</span> <span class="o">=</span> <span class="s2">&quot;snow_depth_sm_m2_int&quot;</span>
+
+<span class="n">ANALYSIS_MONTH</span> <span class="o">=</span> <span class="mi">6</span>                       <span class="c1"># 5 = May, 6 = June, 7 = July</span>
+<span class="n">YEARS</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2019</span><span class="p">,</span> <span class="mi">2020</span><span class="p">,</span> <span class="mi">2021</span><span class="p">]</span>
+<span class="n">DOY_MID</span> <span class="o">=</span> <span class="p">{</span><span class="mi">5</span><span class="p">:</span> <span class="mi">136</span><span class="p">,</span> <span class="mi">6</span><span class="p">:</span> <span class="mi">166</span><span class="p">,</span> <span class="mi">7</span><span class="p">:</span> <span class="mi">197</span><span class="p">}</span>      <span class="c1"># ~15th of each month</span>
+<span class="n">SIC_MIN</span> <span class="o">=</span> <span class="mf">0.5</span>                            <span class="c1"># pack-ice filter (no reliable thickness below this)</span>
+
+<span class="n">month_name</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="mi">2020</span><span class="p">,</span> <span class="n">ANALYSIS_MONTH</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%B&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Analysis month: </span><span class="si">{</span><span class="n">month_name</span><span class="si">}</span><span class="s2">  |  Years: </span><span class="si">{</span><span class="n">YEARS</span><span class="si">}</span><span class="s2">  |  SIC filter: &gt;</span><span class="si">{</span><span class="n">SIC_MIN</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Available times in dataset: </span><span class="si">{</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">t</span><span class="p">)[:</span><span class="mi">7</span><span class="p">]</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">is2_ds</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">values</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Analysis month: June  |  Years: [2019, 2020, 2021]  |  SIC filter: &gt;0.5
+Available times in dataset: [&#39;2019-05&#39;, &#39;2019-06&#39;, &#39;2019-07&#39;, &#39;2019-08&#39;, &#39;2020-05&#39;, &#39;2020-06&#39;, &#39;2020-07&#39;, &#39;2020-08&#39;, &#39;2021-05&#39;, &#39;2021-06&#39;, &#39;2021-07&#39;, &#39;2021-08&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="b-quick-look-maps-for-the-selected-month">
+<h2>1b. Quick-look maps for the selected month<a class="headerlink" href="#b-quick-look-maps-for-the-selected-month" title="Link to this heading">#</a></h2>
+<p>Spatial patterns of the chosen variable for each year.
+Change <code class="docutils literal notranslate"><span class="pre">plot_var</span></code> to view other fields (e.g. <code class="docutils literal notranslate"><span class="pre">snow_depth_sm_m2</span></code>, <code class="docutils literal notranslate"><span class="pre">sea_ice_conc</span></code>, <code class="docutils literal notranslate"><span class="pre">freeboard</span></code>).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cmap</span> <span class="o">=</span> <span class="s2">&quot;viridis&quot;</span>
+<span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span>
+<span class="n">cbar_label</span> <span class="o">=</span> <span class="s2">&quot;Sea ice thickness (m)&quot;</span>
+
+
+<span class="n">proj</span> <span class="o">=</span> <span class="n">ccrs</span><span class="o">.</span><span class="n">NorthPolarStereo</span><span class="p">(</span><span class="n">central_longitude</span><span class="o">=-</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">YEARS</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span>
+    <span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">subplot_kw</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;projection&quot;</span><span class="p">:</span> <span class="n">proj</span><span class="p">},</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">n</span> <span class="o">*</span> <span class="mf">3.5</span><span class="p">,</span> <span class="mf">3.8</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="n">axes</span> <span class="o">=</span> <span class="p">[</span><span class="n">axes</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">year</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">YEARS</span><span class="p">):</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+    <span class="n">ts</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="n">year</span><span class="o">=</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="n">ANALYSIS_MONTH</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">ts</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">is2_ds</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">values</span><span class="p">:</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">continue</span>
+
+    <span class="n">data</span> <span class="o">=</span> <span class="n">is2_ds</span><span class="p">[</span><span class="n">ice_var</span><span class="p">]</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="n">ts</span><span class="p">)</span>
+    <span class="n">im</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+        <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;longitude&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;latitude&quot;</span><span class="p">,</span>
+        <span class="n">transform</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">(),</span>
+        <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">vmax</span><span class="p">,</span>
+        <span class="n">add_colorbar</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">add_arctic_features</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">extent</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">179</span><span class="p">,</span> <span class="mi">179</span><span class="p">,</span> <span class="mi">66</span><span class="p">,</span> <span class="mi">90</span><span class="p">))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">month_name</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span>
+
+<span class="n">cbar</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s2">&quot;horizontal&quot;</span><span class="p">,</span>
+                    <span class="n">extend</span><span class="o">=</span><span class="s2">&quot;both&quot;</span><span class="p">,</span> <span class="n">fraction</span><span class="o">=</span><span class="mf">0.04</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mf">0.10</span><span class="p">)</span>
+<span class="n">cbar</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="n">cbar_label</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">left</span><span class="o">=</span><span class="mf">0.02</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="mf">0.98</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="mf">0.93</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="mf">0.18</span><span class="p">,</span> <span class="n">wspace</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/53f310f1287b27cba1665e2e83c677fc65144f5b6501f286fc8ffaa7b841b357.png" src="../_images/53f310f1287b27cba1665e2e83c677fc65144f5b6501f286fc8ffaa7b841b357.png" />
+</div>
+</div>
+</section>
+<section id="read-era5-cloud-cover-from-earthmover">
+<h2>2. Read ERA5 cloud cover from Earthmover<a class="headerlink" href="#read-era5-cloud-cover-from-earthmover" title="Link to this heading">#</a></h2>
+<p>Access the ERA5 surface reanalysis from the
+<a class="reference external" href="https://app.earthmover.io/marketplace/695bff20622fd82a1ec88780">Earthmover Arraylake catalog</a>.
+We use total cloud cover (<code class="docutils literal notranslate"><span class="pre">tcc</span></code>, 0–1) to estimate cloud attenuation of incoming solar
+radiation. The <code class="docutils literal notranslate"><span class="pre">spatial</span></code> group is optimized for map-style queries.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ds_era5</span> <span class="o">=</span> <span class="n">read_era5_earthmover</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="s2">&quot;spatial&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ERA5 variables:&quot;</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">ds_era5</span><span class="o">.</span><span class="n">data_vars</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Time range:&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">ds_era5</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">])[:</span><span class="mi">10</span><span class="p">],</span> <span class="s2">&quot;to&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">ds_era5</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])[:</span><span class="mi">10</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  <span class=" -Color -Color-Faint">2026-03-17T19:23:35.363687Z</span> <span class=" -Color -Color-Yellow"> WARN</span> <span class=" -Color -Color-Bold -Color-Bold-Yellow">aws_config::provider_config</span><span class=" -Color -Color-Yellow">: failed to parse profile, </span><span class=" -Color -Color-Bold -Color-Bold-Yellow">err</span><span class=" -Color -Color-Yellow">: could not parse profile file: error parsing /Users/akpetty/.aws/config on line 12:</span>
+<span class=" -Color -Color-Yellow">  Profile definition must end with &#39;]&#39; (ParseError(EnvConfigParseError { location: Location { line_number: 12, path: &quot;/Users/akpetty/.aws/config&quot; }, message: &quot;Profile definition must end with &#39;]&#39;&quot; }))</span>
+    <span class=" -Color -Color-Faint">at</span> /Users/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/aws-config-1.8.12/src/provider_config.rs:295
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ERA5 variables: [&#39;blh&#39;, &#39;d2&#39;, &#39;lsp&#39;, &#39;sd&#39;, &#39;cp&#39;, &#39;skt&#39;, &#39;cape&#39;, &#39;mslp&#39;, &#39;sp&#39;, &#39;ssrd&#39;, &#39;stl1&#39;, &#39;t2&#39;, &#39;ssr&#39;, &#39;sst&#39;, &#39;tcc&#39;, &#39;swvl1&#39;, &#39;tcwv&#39;, &#39;tcw&#39;, &#39;u10&#39;, &#39;u100&#39;, &#39;v100&#39;, &#39;v10&#39;]
+Time range: 1975-01-01 to 2024-12-31
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="variable-selection-multi-year-light-transmission-loop">
+<h2>3. Variable selection &amp; multi-year light transmission loop<a class="headerlink" href="#variable-selection-multi-year-light-transmission-loop" title="Link to this heading">#</a></h2>
+<p>Using <code class="docutils literal notranslate"><span class="pre">ANALYSIS_MONTH</span></code> and <code class="docutils literal notranslate"><span class="pre">YEARS</span></code> set above, this section selects the IS2 ice/snow
+variables, then loops over each year to fetch ERA5 cloud cover, regrid it, and run
+the Beer-Lambert model.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sample</span> <span class="o">=</span> <span class="n">is2_ds</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">ice_var</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">sample</span><span class="o">.</span><span class="n">data_vars</span><span class="p">:</span>
+    <span class="n">ice_var</span> <span class="o">=</span> <span class="nb">next</span><span class="p">((</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">sample</span><span class="o">.</span><span class="n">data_vars</span> <span class="k">if</span> <span class="s2">&quot;ice_thickness&quot;</span> <span class="ow">in</span> <span class="n">v</span> <span class="ow">and</span> <span class="s2">&quot;_unc&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">v</span><span class="p">),</span> <span class="n">ice_var</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">snow_var</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">sample</span><span class="o">.</span><span class="n">data_vars</span><span class="p">:</span>
+    <span class="n">snow_var</span> <span class="o">=</span> <span class="nb">next</span><span class="p">((</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">sample</span><span class="o">.</span><span class="n">data_vars</span> <span class="k">if</span> <span class="s2">&quot;snow_depth&quot;</span> <span class="ow">in</span> <span class="n">v</span> <span class="ow">and</span> <span class="s2">&quot;_unc&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">v</span><span class="p">),</span> <span class="n">snow_var</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Comparing </span><span class="si">{</span><span class="n">month_name</span><span class="si">}</span><span class="s2"> across </span><span class="si">{</span><span class="n">YEARS</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Using ice thickness: &#39;</span><span class="si">{</span><span class="n">ice_var</span><span class="si">}</span><span class="s2">&#39;, snow depth: &#39;</span><span class="si">{</span><span class="n">snow_var</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Comparing June across [2019, 2020, 2021]
+Using ice thickness: &#39;ice_thickness_sm_m2_int&#39;, snow depth: &#39;snow_depth_sm_m2_int&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ---- Albedo &amp; surface transmittance per surface type ----</span>
+<span class="n">ALPHA_SNOW_ICE</span> <span class="o">=</span> <span class="mf">0.85</span>   <span class="c1"># snow-covered ice</span>
+<span class="n">ALPHA_BARE_ICE</span> <span class="o">=</span> <span class="mf">0.60</span>   <span class="c1"># bare white ice</span>
+<span class="n">ALPHA_POND</span>     <span class="o">=</span> <span class="mf">0.25</span>   <span class="c1"># melt ponds</span>
+<span class="n">ALPHA_OCEAN</span>    <span class="o">=</span> <span class="mf">0.06</span>   <span class="c1"># open water</span>
+
+<span class="n">I0_SNOW</span>  <span class="o">=</span> <span class="mf">0.30</span>         <span class="c1"># surface scattering layer transmittance (snow-covered)</span>
+<span class="n">I0_BARE</span>  <span class="o">=</span> <span class="mf">0.43</span>         <span class="c1"># bare ice</span>
+<span class="n">I0_POND</span>  <span class="o">=</span> <span class="mf">0.60</span>         <span class="c1"># melt pond</span>
+
+<span class="c1"># ---- Extinction coefficients ----</span>
+<span class="n">KAPPA_SNOW</span> <span class="o">=</span> <span class="mf">15.0</span>       <span class="c1"># m^-1</span>
+<span class="n">KAPPA_ICE</span>  <span class="o">=</span> <span class="mf">1.5</span>        <span class="c1"># m^-1</span>
+
+<span class="c1"># ---- Other parameters ----</span>
+<span class="n">F_PAR</span>       <span class="o">=</span> <span class="mf">0.43</span>      <span class="c1"># broadband SW → PAR</span>
+<span class="n">SNOW_THRESH</span> <span class="o">=</span> <span class="mf">0.03</span>      <span class="c1"># m — below this, surface counts as bare / ponded</span>
+<span class="n">F_POND</span>      <span class="o">=</span> <span class="mf">0.25</span>      <span class="c1"># assumed mean melt-pond fraction of ice area</span>
+
+<span class="n">DOY</span> <span class="o">=</span> <span class="n">DOY_MID</span><span class="p">[</span><span class="n">ANALYSIS_MONTH</span><span class="p">]</span>
+<span class="n">Q_toa</span> <span class="o">=</span> <span class="n">daily_mean_toa_insolation</span><span class="p">(</span><span class="n">is2_ds</span><span class="o">.</span><span class="n">latitude</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">DOY</span><span class="p">)</span>
+
+<span class="c1"># ---- Loop over years: ERA5 fetch → regrid → Beer-Lambert ----</span>
+<span class="n">results</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="n">YEARS</span><span class="p">:</span>
+    <span class="n">ts</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="n">year</span><span class="o">=</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="n">ANALYSIS_MONTH</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">ts</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">is2_ds</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">values</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">ts</span><span class="si">:</span><span class="s2">%Y-%m</span><span class="si">}</span><span class="s2"> — not in IS2 dataset, skipping&quot;</span><span class="p">)</span>
+        <span class="k">continue</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">ts</span><span class="si">:</span><span class="s2">%Y-%m</span><span class="si">}</span><span class="s2"> ...&quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+    <span class="n">is2_snap</span> <span class="o">=</span> <span class="n">is2_ds</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="n">ts</span><span class="p">)</span>
+
+    <span class="n">era5_date</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">ANALYSIS_MONTH</span><span class="si">:</span><span class="s2">02d</span><span class="si">}</span><span class="s2">-15&quot;</span>
+    <span class="n">tcc_era5</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">ds_era5</span><span class="o">.</span><span class="n">tcc</span>
+        <span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="nb">slice</span><span class="p">(</span><span class="n">era5_date</span><span class="p">,</span> <span class="n">era5_date</span><span class="p">),</span> <span class="n">latitude</span><span class="o">=</span><span class="nb">slice</span><span class="p">(</span><span class="mi">90</span><span class="p">,</span> <span class="mi">50</span><span class="p">))</span>
+        <span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="s2">&quot;time&quot;</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">compute</span><span class="p">()</span>
+    <span class="p">)</span>
+    <span class="n">tcc</span> <span class="o">=</span> <span class="n">regrid_era5_to_is2</span><span class="p">(</span><span class="n">tcc_era5</span><span class="p">,</span> <span class="n">is2_ds</span><span class="o">.</span><span class="n">latitude</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">is2_ds</span><span class="o">.</span><span class="n">longitude</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+
+    <span class="n">h_ice</span>  <span class="o">=</span> <span class="n">is2_snap</span><span class="p">[</span><span class="n">ice_var</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+    <span class="n">h_snow</span> <span class="o">=</span> <span class="n">is2_snap</span><span class="p">[</span><span class="n">snow_var</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+    <span class="n">sic</span>    <span class="o">=</span> <span class="n">is2_snap</span><span class="o">.</span><span class="n">sea_ice_conc</span><span class="o">.</span><span class="n">values</span>
+
+    <span class="n">h_i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan_to_num</span><span class="p">(</span><span class="n">h_ice</span><span class="p">,</span> <span class="n">nan</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
+    <span class="n">h_s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan_to_num</span><span class="p">(</span><span class="n">h_snow</span><span class="p">,</span> <span class="n">nan</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
+
+    <span class="c1"># Surface shortwave after cloud attenuation</span>
+    <span class="n">Q_surf</span> <span class="o">=</span> <span class="n">Q_toa</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="mf">0.75</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">tcc</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="mf">3.4</span><span class="p">))</span>
+
+    <span class="c1"># --- Sub-area fractions within the ice-covered part ---</span>
+    <span class="n">is_snow</span> <span class="o">=</span> <span class="n">h_snow</span> <span class="o">&gt;</span> <span class="n">SNOW_THRESH</span>
+    <span class="n">f_snow</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">is_snow</span><span class="p">,</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="n">F_POND</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+    <span class="n">f_pond</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">is_snow</span><span class="p">,</span> <span class="n">F_POND</span><span class="p">,</span> <span class="n">F_POND</span><span class="p">)</span>
+    <span class="n">f_bare</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="n">f_snow</span> <span class="o">-</span> <span class="n">f_pond</span>
+
+    <span class="c1"># --- Transmittance for each surface type (albedo × Beer-Lambert) ---</span>
+    <span class="n">T_snow</span> <span class="o">=</span> <span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">ALPHA_SNOW_ICE</span><span class="p">)</span> <span class="o">*</span> <span class="n">I0_SNOW</span>
+              <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">KAPPA_SNOW</span> <span class="o">*</span> <span class="n">h_s</span> <span class="o">-</span> <span class="n">KAPPA_ICE</span> <span class="o">*</span> <span class="n">h_i</span><span class="p">))</span>
+    <span class="n">T_bare</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">ALPHA_BARE_ICE</span><span class="p">)</span> <span class="o">*</span> <span class="n">I0_BARE</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">KAPPA_ICE</span> <span class="o">*</span> <span class="n">h_i</span><span class="p">)</span>
+    <span class="n">T_pond</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">ALPHA_POND</span><span class="p">)</span> <span class="o">*</span> <span class="n">I0_POND</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">KAPPA_ICE</span> <span class="o">*</span> <span class="n">h_i</span><span class="p">)</span>
+
+    <span class="c1"># Effective ice-area transmittance (weighted by sub-area fractions)</span>
+    <span class="n">T_ice</span> <span class="o">=</span> <span class="n">f_snow</span> <span class="o">*</span> <span class="n">T_snow</span> <span class="o">+</span> <span class="n">f_bare</span> <span class="o">*</span> <span class="n">T_bare</span> <span class="o">+</span> <span class="n">f_pond</span> <span class="o">*</span> <span class="n">T_pond</span>
+
+    <span class="n">T_ow</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="n">ALPHA_OCEAN</span>
+
+    <span class="c1"># Grid-cell PAR</span>
+    <span class="n">par_ice</span> <span class="o">=</span> <span class="n">Q_surf</span> <span class="o">*</span> <span class="n">T_ice</span> <span class="o">*</span> <span class="n">F_PAR</span>
+    <span class="n">par_ow</span>  <span class="o">=</span> <span class="n">Q_surf</span> <span class="o">*</span> <span class="n">T_ow</span> <span class="o">*</span> <span class="n">F_PAR</span>
+    <span class="n">par_gc</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">sic</span><span class="p">),</span>
+                       <span class="n">sic</span> <span class="o">*</span> <span class="n">par_ice</span> <span class="o">+</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">sic</span><span class="p">)</span> <span class="o">*</span> <span class="n">par_ow</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+
+    <span class="n">results</span><span class="p">[</span><span class="n">year</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+        <span class="n">h_ice</span><span class="o">=</span><span class="n">h_ice</span><span class="p">,</span> <span class="n">h_snow</span><span class="o">=</span><span class="n">h_snow</span><span class="p">,</span> <span class="n">sic</span><span class="o">=</span><span class="n">sic</span><span class="p">,</span>
+        <span class="n">Q_toa</span><span class="o">=</span><span class="n">Q_toa</span><span class="p">,</span> <span class="n">tcc</span><span class="o">=</span><span class="n">tcc</span><span class="p">,</span> <span class="n">Q_surf</span><span class="o">=</span><span class="n">Q_surf</span><span class="p">,</span>
+        <span class="n">T_snow</span><span class="o">=</span><span class="n">T_snow</span><span class="p">,</span> <span class="n">T_bare</span><span class="o">=</span><span class="n">T_bare</span><span class="p">,</span> <span class="n">T_pond</span><span class="o">=</span><span class="n">T_pond</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="n">T_ice</span><span class="p">,</span>
+        <span class="n">f_snow</span><span class="o">=</span><span class="n">f_snow</span><span class="p">,</span> <span class="n">f_bare</span><span class="o">=</span><span class="n">f_bare</span><span class="p">,</span> <span class="n">f_pond</span><span class="o">=</span><span class="n">f_pond</span><span class="p">,</span>
+        <span class="n">PAR_under_ice</span><span class="o">=</span><span class="n">par_ice</span><span class="p">,</span> <span class="n">PAR_ocean</span><span class="o">=</span><span class="n">par_gc</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;under-ice PAR median </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">nanmedian</span><span class="p">(</span><span class="n">par_ice</span><span class="p">)</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> W/m²&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Computed light transmission for </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span><span class="si">}</span><span class="s2"> years.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  2019-06 ... 
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>under-ice PAR median 29.6 W/m²
+  2020-06 ... 
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>under-ice PAR median 32.4 W/m²
+  2021-06 ... 
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>under-ice PAR median 32.3 W/m²
+
+Computed light transmission for 3 years.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># (ERA5 regridding is now done inside the multi-year loop above)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="beer-lambert-light-transmission-model-with-albedo-melt-ponds">
+<h2>4. Beer-Lambert light transmission model with albedo &amp; melt ponds<a class="headerlink" href="#beer-lambert-light-transmission-model-with-albedo-melt-ponds" title="Link to this heading">#</a></h2>
+<p>We estimate under-ice PAR (photosynthetically active radiation, 400–700 nm) through a
+multi-surface-type model.  Each ice-covered grid cell is partitioned into three sub-areas
+weighted by their respective fractions:</p>
+<div class="math notranslate nohighlight">
+\[f_{\text{pond}},\quad f_{\text{bare}} = \max(0,\; 1 - f_{\text{pond}} - f_{\text{snow}}),\quad f_{\text{snow}} = 1 - f_{\text{pond}} - f_{\text{bare}}\]</div>
+<p>where snow cover is diagnosed from the snow depth field (<span class="math notranslate nohighlight">\(h_s &gt; \)</span> threshold → snow-covered).</p>
+<p><strong>Step 1 — Incoming surface shortwave</strong>
+$<span class="math notranslate nohighlight">\(Q_{\text{surface}} = Q_{\text{TOA}} \;\bigl(1 - 0.75\,C_{\text{cloud}}^{\,3.4}\bigr)\)</span>$</p>
+<p><strong>Step 2 — Transmittance for each surface type</strong> (Beer-Lambert)</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Surface type</p></th>
+<th class="head"><p>Albedo <span class="math notranslate nohighlight">\(\alpha\)</span></p></th>
+<th class="head"><p>Transmittance <span class="math notranslate nohighlight">\(T\)</span></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Snow-covered ice</p></td>
+<td><p><span class="math notranslate nohighlight">\(\alpha_{\text{snow}}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\((1-\alpha_{\text{snow}})\; i_{0,s}\; e^{-\kappa_s h_s - \kappa_i h_i}\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>Bare ice</p></td>
+<td><p><span class="math notranslate nohighlight">\(\alpha_{\text{ice}}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\((1-\alpha_{\text{ice}})\; i_{0,b}\; e^{-\kappa_i h_i}\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p>Melt pond</p></td>
+<td><p><span class="math notranslate nohighlight">\(\alpha_{\text{pond}}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\((1-\alpha_{\text{pond}})\; i_{0,p}\; e^{-\kappa_i h_i}\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>Open water</p></td>
+<td><p><span class="math notranslate nohighlight">\(\alpha_{\text{ow}}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\((1-\alpha_{\text{ow}})\)</span></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Step 3 — Grid-cell under-ice PAR</strong>
+$<span class="math notranslate nohighlight">\(\text{PAR}_{\text{gc}} = Q_{\text{surface}} \times f_{\text{PAR}} \times \Bigl[
+  \text{SIC}\bigl(f_s\,T_s + f_b\,T_b + f_p\,T_p\bigr) + (1-\text{SIC})(1-\alpha_{\text{ow}})
+\Bigr]\)</span>$</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Symbol</p></th>
+<th class="head"><p>Value</p></th>
+<th class="head"><p>Reference</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Snow-covered ice albedo</p></td>
+<td><p><span class="math notranslate nohighlight">\(\alpha_{\text{snow}}\)</span></p></td>
+<td><p>0.85</p></td>
+<td><p>Perovich et al. (2002)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Bare ice albedo</p></td>
+<td><p><span class="math notranslate nohighlight">\(\alpha_{\text{ice}}\)</span></p></td>
+<td><p>0.60</p></td>
+<td><p>Perovich et al. (2002)</p></td>
+</tr>
+<tr class="row-even"><td><p>Melt pond albedo</p></td>
+<td><p><span class="math notranslate nohighlight">\(\alpha_{\text{pond}}\)</span></p></td>
+<td><p>0.25</p></td>
+<td><p>Flocco et al. (2012)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Open-water albedo</p></td>
+<td><p><span class="math notranslate nohighlight">\(\alpha_{\text{ow}}\)</span></p></td>
+<td><p>0.06</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-even"><td><p>Surface transmittance (snow-covered)</p></td>
+<td><p><span class="math notranslate nohighlight">\(i_{0,s}\)</span></p></td>
+<td><p>0.30</p></td>
+<td><p>Light et al. (2008)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Surface transmittance (bare ice)</p></td>
+<td><p><span class="math notranslate nohighlight">\(i_{0,b}\)</span></p></td>
+<td><p>0.43</p></td>
+<td><p>Light et al. (2008)</p></td>
+</tr>
+<tr class="row-even"><td><p>Surface transmittance (melt pond)</p></td>
+<td><p><span class="math notranslate nohighlight">\(i_{0,p}\)</span></p></td>
+<td><p>0.60</p></td>
+<td><p>Light et al. (2015)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Snow extinction</p></td>
+<td><p><span class="math notranslate nohighlight">\(\kappa_s\)</span></p></td>
+<td><p>15 m<span class="math notranslate nohighlight">\(^{-1}\)</span></p></td>
+<td><p>Perovich (1996)</p></td>
+</tr>
+<tr class="row-even"><td><p>Ice extinction</p></td>
+<td><p><span class="math notranslate nohighlight">\(\kappa_i\)</span></p></td>
+<td><p>1.5 m<span class="math notranslate nohighlight">\(^{-1}\)</span></p></td>
+<td><p>Grenfell &amp; Maykut (1977)</p></td>
+</tr>
+<tr class="row-odd"><td><p>PAR fraction of SW</p></td>
+<td><p><span class="math notranslate nohighlight">\(f_{\text{PAR}}\)</span></p></td>
+<td><p>0.43</p></td>
+<td><p>Frouin &amp; Pinker (1995)</p></td>
+</tr>
+<tr class="row-even"><td><p>Mean melt pond fraction</p></td>
+<td><p><span class="math notranslate nohighlight">\(f_{\text{pond}}\)</span></p></td>
+<td><p>0.25</p></td>
+<td><p>Rösel &amp; Kaleschke (2012)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># (Model computation is now done inside the multi-year loop above)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="compare-inputs-and-outputs-across-years">
+<h2>5. Compare inputs and outputs across years<a class="headerlink" href="#compare-inputs-and-outputs-across-years" title="Link to this heading">#</a></h2>
+<p>Each row is one year; columns show ice thickness, snow depth, cloud cover,
+surface shortwave, transmittance, and under-ice PAR.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">proj</span> <span class="o">=</span> <span class="n">ccrs</span><span class="o">.</span><span class="n">NorthPolarStereo</span><span class="p">(</span><span class="n">central_longitude</span><span class="o">=-</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">transform</span> <span class="o">=</span> <span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">()</span>
+<span class="n">lon2d</span> <span class="o">=</span> <span class="n">is2_ds</span><span class="o">.</span><span class="n">longitude</span><span class="o">.</span><span class="n">values</span>
+<span class="n">lat2d</span> <span class="o">=</span> <span class="n">is2_ds</span><span class="o">.</span><span class="n">latitude</span><span class="o">.</span><span class="n">values</span>
+
+<span class="n">col_specs</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">&quot;Q_toa&quot;</span><span class="p">,</span>          <span class="s2">&quot;YlOrRd&quot;</span><span class="p">,</span>  <span class="mi">0</span><span class="p">,</span> <span class="mi">450</span><span class="p">,</span>  <span class="s2">&quot;TOA SW (W/m²)&quot;</span><span class="p">,</span>         <span class="mi">1</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;tcc&quot;</span><span class="p">,</span>            <span class="s2">&quot;Greys_r&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span>    <span class="s2">&quot;Cloud cover&quot;</span><span class="p">,</span>           <span class="mi">1</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;Q_surf&quot;</span><span class="p">,</span>         <span class="s2">&quot;YlOrRd&quot;</span><span class="p">,</span>  <span class="mi">0</span><span class="p">,</span> <span class="mi">350</span><span class="p">,</span>  <span class="s2">&quot;Surface SW (W/m²)&quot;</span><span class="p">,</span>     <span class="mi">1</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;h_ice&quot;</span><span class="p">,</span>          <span class="s2">&quot;viridis&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span>    <span class="s2">&quot;Ice thickness (m)&quot;</span><span class="p">,</span>     <span class="mi">1</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;h_snow&quot;</span><span class="p">,</span>         <span class="s2">&quot;BuPu&quot;</span><span class="p">,</span>    <span class="mi">0</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span>   <span class="s2">&quot;Snow depth (cm)&quot;</span><span class="p">,</span>     <span class="mi">100</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;T&quot;</span><span class="p">,</span>              <span class="s2">&quot;cividis&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">,</span> <span class="s2">&quot;Transmittance&quot;</span><span class="p">,</span>         <span class="mi">1</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;PAR_under_ice&quot;</span><span class="p">,</span>  <span class="s2">&quot;YlGn&quot;</span><span class="p">,</span>    <span class="mi">0</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span>   <span class="s2">&quot;Under-ice PAR (W/m²)&quot;</span><span class="p">,</span>  <span class="mi">1</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="n">years_avail</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<span class="n">nrows</span><span class="p">,</span> <span class="n">ncols</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">years_avail</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">col_specs</span><span class="p">)</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">ncols</span> <span class="o">*</span> <span class="mf">2.5</span><span class="p">,</span> <span class="n">nrows</span> <span class="o">*</span> <span class="mf">2.8</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">))</span>
+<span class="n">gs</span> <span class="o">=</span> <span class="n">gridspec</span><span class="o">.</span><span class="n">GridSpec</span><span class="p">(</span><span class="n">nrows</span><span class="p">,</span> <span class="n">ncols</span><span class="p">,</span> <span class="n">wspace</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">hspace</span><span class="o">=</span><span class="mf">0.12</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">ri</span><span class="p">,</span> <span class="n">year</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">years_avail</span><span class="p">):</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="n">year</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">ci</span><span class="p">,</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">cmap</span><span class="p">,</span> <span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">scale</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">col_specs</span><span class="p">):</span>
+        <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="n">ri</span><span class="p">,</span> <span class="n">ci</span><span class="p">],</span> <span class="n">projection</span><span class="o">=</span><span class="n">proj</span><span class="p">)</span>
+        <span class="n">im</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">(</span>
+            <span class="n">lon2d</span><span class="p">,</span> <span class="n">lat2d</span><span class="p">,</span> <span class="n">r</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">*</span> <span class="n">scale</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">transform</span><span class="p">,</span>
+            <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">vmax</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">add_arctic_features</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">ri</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">ci</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="mf">0.08</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">year</span><span class="p">),</span> <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span>
+                    <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">,</span>
+                    <span class="n">rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">ci</span><span class="p">,</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">cmap</span><span class="p">,</span> <span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">scale</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">col_specs</span><span class="p">):</span>
+    <span class="n">extend</span> <span class="o">=</span> <span class="s2">&quot;neither&quot;</span> <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;tcc&quot;</span><span class="p">,</span> <span class="s2">&quot;Q_toa&quot;</span><span class="p">)</span> <span class="k">else</span> <span class="s2">&quot;max&quot;</span>
+    <span class="n">ax_last</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="n">ci</span> <span class="o">+</span> <span class="p">(</span><span class="n">nrows</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">ncols</span><span class="p">]</span>
+    <span class="n">cb</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span>
+        <span class="n">ax_last</span><span class="o">.</span><span class="n">collections</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ax</span><span class="o">=</span><span class="n">fig</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="n">ci</span><span class="p">::</span><span class="n">ncols</span><span class="p">],</span>
+        <span class="n">orientation</span><span class="o">=</span><span class="s2">&quot;horizontal&quot;</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mf">0.02</span><span class="p">,</span> <span class="n">extend</span><span class="o">=</span><span class="n">extend</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">cb</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
+    <span class="n">cb</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">labelsize</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Arctic light transmission — </span><span class="si">{</span><span class="n">month_name</span><span class="si">}</span><span class="s2"> comparison&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/f1f98f37eaf6ec762c7a6cdabe9b8ff908ba06c8aac5c189a7dc5aa98612821a.png" src="../_images/f1f98f37eaf6ec762c7a6cdabe9b8ff908ba06c8aac5c189a7dc5aa98612821a.png" />
+</div>
+</div>
+</section>
+<section id="identify-high-transmission-regions-across-years-pack-ice">
+<h2>6. Identify high-transmission regions across years (pack ice)<a class="headerlink" href="#identify-high-transmission-regions-across-years-pack-ice" title="Link to this heading">#</a></h2>
+<p>We restrict this analysis to <strong>pack ice</strong> (SIC ≥ <code class="docutils literal notranslate"><span class="pre">SIC_MIN</span></code>, default 0.5) where
+IS2 provides reliable thickness retrievals. Grid-cells where under-ice PAR exceeds
+the threshold indicate areas where thin ice and/or low snow cover may allow
+ecologically significant light levels beneath the ice.
+Shown for each available year side-by-side. Adjust <code class="docutils literal notranslate"><span class="pre">SIC_MIN</span></code> in Section 1 to
+change the pack-ice concentration threshold.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">PAR_THRESHOLD</span> <span class="o">=</span> <span class="mf">5.0</span>  <span class="c1"># W/m²</span>
+<span class="n">years_avail</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">years_avail</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span>
+    <span class="mi">2</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">n</span> <span class="o">*</span> <span class="mf">4.5</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span>
+    <span class="n">subplot_kw</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;projection&quot;</span><span class="p">:</span> <span class="n">proj</span><span class="p">},</span>
+<span class="p">)</span>
+<span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="n">axes</span> <span class="o">=</span> <span class="n">axes</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">ci</span><span class="p">,</span> <span class="n">year</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">years_avail</span><span class="p">):</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="n">year</span><span class="p">]</span>
+    <span class="n">sic_y</span> <span class="o">=</span> <span class="n">r</span><span class="p">[</span><span class="s2">&quot;sic&quot;</span><span class="p">]</span>
+    <span class="n">pack_mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">sic_y</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">sic_y</span> <span class="o">&gt;=</span> <span class="n">SIC_MIN</span><span class="p">)</span>
+    <span class="n">high_light</span> <span class="o">=</span> <span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s2">&quot;PAR_under_ice&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">PAR_THRESHOLD</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">pack_mask</span>
+
+    <span class="n">par_masked</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">pack_mask</span><span class="p">,</span> <span class="n">r</span><span class="p">[</span><span class="s2">&quot;PAR_under_ice&quot;</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">ci</span><span class="p">]</span>
+    <span class="n">im</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">(</span>
+        <span class="n">lon2d</span><span class="p">,</span> <span class="n">lat2d</span><span class="p">,</span> <span class="n">par_masked</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">transform</span><span class="p">,</span>
+        <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;YlGn&quot;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">hl_float</span> <span class="o">=</span> <span class="n">high_light</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+    <span class="n">mask_pos</span> <span class="o">=</span> <span class="n">lon2d</span> <span class="o">&gt;=</span> <span class="mi">0</span>
+    <span class="n">mask_neg</span> <span class="o">=</span> <span class="n">lon2d</span> <span class="o">&lt;</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">mask</span> <span class="ow">in</span> <span class="p">(</span><span class="n">mask_pos</span><span class="p">,</span> <span class="n">mask_neg</span><span class="p">):</span>
+        <span class="n">lon_m</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">mask</span><span class="p">,</span> <span class="n">lon2d</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+        <span class="n">dat_m</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">mask</span><span class="p">,</span> <span class="n">hl_float</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span>
+            <span class="n">lon_m</span><span class="p">,</span> <span class="n">lat2d</span><span class="p">,</span> <span class="n">dat_m</span><span class="p">,</span>
+            <span class="n">levels</span><span class="o">=</span><span class="p">[</span><span class="mf">0.5</span><span class="p">],</span> <span class="n">colors</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">linewidths</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">transform</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="n">add_arctic_features</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s2"> — Under-ice PAR</span><span class="se">\n</span><span class="s2">(red &gt; </span><span class="si">{</span><span class="n">PAR_THRESHOLD</span><span class="si">}</span><span class="s2"> W/m², SIC ≥ </span><span class="si">{</span><span class="n">SIC_MIN</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mf">0.04</span><span class="p">,</span> <span class="n">extend</span><span class="o">=</span><span class="s2">&quot;max&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;W/m²&quot;</span><span class="p">)</span>
+
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">ci</span><span class="p">]</span>
+    <span class="n">h_ice_hl</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">high_light</span><span class="p">,</span> <span class="n">r</span><span class="p">[</span><span class="s2">&quot;h_ice&quot;</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+    <span class="n">im</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">(</span>
+        <span class="n">lon2d</span><span class="p">,</span> <span class="n">lat2d</span><span class="p">,</span> <span class="n">h_ice_hl</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">transform</span><span class="p">,</span>
+        <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;plasma_r&quot;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">add_arctic_features</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s2"> — Ice thickness (high-light grid-cells)&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mf">0.04</span><span class="p">,</span> <span class="n">extend</span><span class="o">=</span><span class="s2">&quot;max&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;m&quot;</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s2">&quot;High under-ice light — pack ice (SIC ≥ </span><span class="si">{</span><span class="n">SIC_MIN</span><span class="si">}</span><span class="s2">) — </span><span class="si">{</span><span class="n">month_name</span><span class="si">}</span><span class="s2"> comparison&quot;</span><span class="p">,</span>
+    <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">1.02</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/f04a12a984ee6917d733d4496a1494648c1d7c655b828fd51164bf61f1251917.png" src="../_images/f04a12a984ee6917d733d4496a1494648c1d7c655b828fd51164bf61f1251917.png" />
+</div>
+</div>
+</section>
+<section id="summary-statistics-year-by-year-comparison-pack-ice-sic-sic-min">
+<h2>7. Summary statistics — year-by-year comparison (pack ice, SIC ≥ <code class="docutils literal notranslate"><span class="pre">SIC_MIN</span></code>)<a class="headerlink" href="#summary-statistics-year-by-year-comparison-pack-ice-sic-sic-min" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rows</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="n">year</span><span class="p">]</span>
+    <span class="n">pack_mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s2">&quot;sic&quot;</span><span class="p">])</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s2">&quot;sic&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">SIC_MIN</span><span class="p">)</span>
+    <span class="n">n_pack</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">pack_mask</span><span class="p">)</span>
+    <span class="n">high_light</span> <span class="o">=</span> <span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s2">&quot;PAR_under_ice&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">PAR_THRESHOLD</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">pack_mask</span>
+    <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+        <span class="s2">&quot;Year&quot;</span><span class="p">:</span> <span class="n">year</span><span class="p">,</span>
+        <span class="s2">&quot;Grid-cells&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">n_pack</span><span class="p">),</span>
+        <span class="s2">&quot;h_ice (m)&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s2">&quot;h_ice&quot;</span><span class="p">][</span><span class="n">pack_mask</span><span class="p">]),</span>
+        <span class="s2">&quot;h_snow (cm)&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s2">&quot;h_snow&quot;</span><span class="p">][</span><span class="n">pack_mask</span><span class="p">])</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span>
+        <span class="s2">&quot;TOA SW&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s2">&quot;Q_toa&quot;</span><span class="p">][</span><span class="n">pack_mask</span><span class="p">]),</span>
+        <span class="s2">&quot;Cloud&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s2">&quot;tcc&quot;</span><span class="p">][</span><span class="n">pack_mask</span><span class="p">]),</span>
+        <span class="s2">&quot;Sfc SW&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s2">&quot;Q_surf&quot;</span><span class="p">][</span><span class="n">pack_mask</span><span class="p">]),</span>
+        <span class="s2">&quot;Trans.&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s2">&quot;T&quot;</span><span class="p">][</span><span class="n">pack_mask</span><span class="p">]),</span>
+        <span class="s2">&quot;PAR (W/m²)&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s2">&quot;PAR_under_ice&quot;</span><span class="p">][</span><span class="n">pack_mask</span><span class="p">]),</span>
+        <span class="sa">f</span><span class="s2">&quot;PAR&gt;</span><span class="si">{</span><span class="n">PAR_THRESHOLD</span><span class="si">}</span><span class="s2"> %&quot;</span><span class="p">:</span> <span class="mi">100</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">high_light</span><span class="p">)</span> <span class="o">/</span> <span class="n">n_pack</span><span class="p">,</span>
+        <span class="s2">&quot;h_ice HL (m)&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s2">&quot;h_ice&quot;</span><span class="p">][</span><span class="n">high_light</span><span class="p">]),</span>
+        <span class="s2">&quot;h_snow HL (cm)&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s2">&quot;h_snow&quot;</span><span class="p">][</span><span class="n">high_light</span><span class="p">])</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span>
+    <span class="p">})</span>
+
+<span class="n">summary_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;Year&quot;</span><span class="p">)</span>
+<span class="n">summary_df</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style type="text/css">
+</style>
+<table id="T_c1fd6">
+  <thead>
+    <tr>
+      <th class="blank level0" >&nbsp;</th>
+      <th id="T_c1fd6_level0_col0" class="col_heading level0 col0" >Grid-cells</th>
+      <th id="T_c1fd6_level0_col1" class="col_heading level0 col1" >h_ice (m)</th>
+      <th id="T_c1fd6_level0_col2" class="col_heading level0 col2" >h_snow (cm)</th>
+      <th id="T_c1fd6_level0_col3" class="col_heading level0 col3" >TOA SW</th>
+      <th id="T_c1fd6_level0_col4" class="col_heading level0 col4" >Cloud</th>
+      <th id="T_c1fd6_level0_col5" class="col_heading level0 col5" >Sfc SW</th>
+      <th id="T_c1fd6_level0_col6" class="col_heading level0 col6" >Trans.</th>
+      <th id="T_c1fd6_level0_col7" class="col_heading level0 col7" >PAR (W/m²)</th>
+      <th id="T_c1fd6_level0_col8" class="col_heading level0 col8" >PAR>5.0 %</th>
+      <th id="T_c1fd6_level0_col9" class="col_heading level0 col9" >h_ice HL (m)</th>
+      <th id="T_c1fd6_level0_col10" class="col_heading level0 col10" >h_snow HL (cm)</th>
+    </tr>
+    <tr>
+      <th class="index_name level0" >Year</th>
+      <th class="blank col0" >&nbsp;</th>
+      <th class="blank col1" >&nbsp;</th>
+      <th class="blank col2" >&nbsp;</th>
+      <th class="blank col3" >&nbsp;</th>
+      <th class="blank col4" >&nbsp;</th>
+      <th class="blank col5" >&nbsp;</th>
+      <th class="blank col6" >&nbsp;</th>
+      <th class="blank col7" >&nbsp;</th>
+      <th class="blank col8" >&nbsp;</th>
+      <th class="blank col9" >&nbsp;</th>
+      <th class="blank col10" >&nbsp;</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th id="T_c1fd6_level0_row0" class="row_heading level0 row0" >2019</th>
+      <td id="T_c1fd6_row0_col0" class="data row0 col0" >15046</td>
+      <td id="T_c1fd6_row0_col1" class="data row0 col1" >1.991</td>
+      <td id="T_c1fd6_row0_col2" class="data row0 col2" >13.656</td>
+      <td id="T_c1fd6_row0_col3" class="data row0 col3" >521.968</td>
+      <td id="T_c1fd6_row0_col4" class="data row0 col4" >0.820</td>
+      <td id="T_c1fd6_row0_col5" class="data row0 col5" >281.260</td>
+      <td id="T_c1fd6_row0_col6" class="data row0 col6" >0.055</td>
+      <td id="T_c1fd6_row0_col7" class="data row0 col7" >6.578</td>
+      <td id="T_c1fd6_row0_col8" class="data row0 col8" >26.605</td>
+      <td id="T_c1fd6_row0_col9" class="data row0 col9" >0.788</td>
+      <td id="T_c1fd6_row0_col10" class="data row0 col10" >5.168</td>
+    </tr>
+    <tr>
+      <th id="T_c1fd6_level0_row1" class="row_heading level0 row1" >2020</th>
+      <td id="T_c1fd6_row1_col0" class="data row1 col0" >15073</td>
+      <td id="T_c1fd6_row1_col1" class="data row1 col1" >1.561</td>
+      <td id="T_c1fd6_row1_col2" class="data row1 col2" >11.991</td>
+      <td id="T_c1fd6_row1_col3" class="data row1 col3" >521.425</td>
+      <td id="T_c1fd6_row1_col4" class="data row1 col4" >0.854</td>
+      <td id="T_c1fd6_row1_col5" class="data row1 col5" >247.557</td>
+      <td id="T_c1fd6_row1_col6" class="data row1 col6" >0.059</td>
+      <td id="T_c1fd6_row1_col7" class="data row1 col7" >7.721</td>
+      <td id="T_c1fd6_row1_col8" class="data row1 col8" >26.823</td>
+      <td id="T_c1fd6_row1_col9" class="data row1 col9" >0.707</td>
+      <td id="T_c1fd6_row1_col10" class="data row1 col10" >4.724</td>
+    </tr>
+    <tr>
+      <th id="T_c1fd6_level0_row2" class="row_heading level0 row2" >2021</th>
+      <td id="T_c1fd6_row2_col0" class="data row2 col0" >15382</td>
+      <td id="T_c1fd6_row2_col1" class="data row2 col1" >1.527</td>
+      <td id="T_c1fd6_row2_col2" class="data row2 col2" >13.301</td>
+      <td id="T_c1fd6_row2_col3" class="data row2 col3" >521.290</td>
+      <td id="T_c1fd6_row2_col4" class="data row2 col4" >0.895</td>
+      <td id="T_c1fd6_row2_col5" class="data row2 col5" >222.152</td>
+      <td id="T_c1fd6_row2_col6" class="data row2 col6" >0.049</td>
+      <td id="T_c1fd6_row2_col7" class="data row2 col7" >5.439</td>
+      <td id="T_c1fd6_row2_col8" class="data row2 col8" >22.143</td>
+      <td id="T_c1fd6_row2_col9" class="data row2 col9" >0.670</td>
+      <td id="T_c1fd6_row2_col10" class="data row2 col10" >5.119</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<section id="interpretation">
+<h3>Interpretation<a class="headerlink" href="#interpretation" title="Link to this heading">#</a></h3>
+<p>The table above reveals how the different drivers interact to control under-ice
+PAR across the three June snapshots (2019–2021):</p>
+<p><strong>Ice thickness is the dominant control.</strong> Mean pack-ice thickness dropped from
+~2.0 m (2019) to ~1.5 m (2020–2021), a ~25 % thinning. Because light decays
+exponentially through ice, even modest thinning produces a large increase in
+transmittance — mean transmittance rose from 0.055 (2019) to 0.059 (2020)
+despite higher cloud cover in 2020. The mean thickness within high-transmission
+grid-cells (PAR &gt; 5 W/m²) is substantially lower than the pack-ice average,
+confirming that thin ice is the primary gateway for under-ice light.</p>
+<p><strong>Snow depth has a secondary but important role.</strong> Snow is far more opaque than
+ice (κ_snow = 15 m⁻¹ vs κ_ice = 1.5 m⁻¹), so a few centimetres of difference
+matter. 2020 had the lowest mean snow depth (0.12 m vs 0.13–0.14 m in the other
+years), which contributed to its having the highest transmittance.</p>
+<p><strong>Cloud cover modulates the incoming energy budget.</strong> TOA insolation is
+essentially identical across years (~522 W/m²) since it depends only on latitude
+and day of year. Cloud cover, however, varied substantially: mean TCC increased
+from 0.82 (2019) to 0.90 (2021), reducing surface shortwave from ~281 to
+~222 W/m². This ~21 % drop in surface SW between 2019 and 2021 directly scales
+the under-ice PAR, partially offsetting the effect of thinner ice in 2021.</p>
+<p><strong>Net effect on under-ice PAR.</strong> The interplay between these factors produces a
+non-obvious result: 2020 had the highest mean under-ice PAR (7.7 W/m²) because
+it combined thin ice and low snow with only moderately high cloud cover. By
+contrast, 2021 had comparable ice thickness but much higher cloud cover, yielding
+the lowest PAR (5.4 W/m²). The fraction of pack-ice grid-cells exceeding the
+5 W/m² threshold ranged from ~22 % (2021) to ~27 % (2019–2020).</p>
+<p><strong>In summary</strong>, ice thickness and snow depth set the <em>transmittance</em> of the ice
+column, while cloud cover controls the <em>amount of energy available</em> to be
+transmitted. Both matter — a cloudy summer over thin ice can produce less
+under-ice light than a clearer summer over thicker ice.</p>
+</section>
+</section>
+<section id="next-steps">
+<h2>Next steps<a class="headerlink" href="#next-steps" title="Link to this heading">#</a></h2>
+<p>This proof-of-concept compares under-ice light across three summers using explicit
+albedo and melt-pond assumptions. Potential improvements:</p>
+<ul class="simple">
+<li><p><strong>Spectral resolution</strong>: use wavelength-dependent extinction coefficients instead of broadband values</p></li>
+<li><p><strong>Spatially varying melt-pond fraction</strong>: replace the fixed <code class="docutils literal notranslate"><span class="pre">F_POND</span></code> with satellite-derived pond fraction maps (e.g. MODIS)</p></li>
+<li><p><strong>Full seasonal cycle</strong>: extend to May–August monthly evolution to capture the spring bloom window</p></li>
+<li><p><strong>Validation</strong>: compare modeled under-ice PAR against buoy-based observations (e.g. ice-tethered profilers)</p></li>
+<li><p><strong>Monthly ERA5 means</strong>: replace the single-day cloud cover with monthly averages for more robust estimates</p></li>
+<li><p><strong>Ice type</strong>: differentiate first-year vs. multi-year ice extinction properties and albedo</p></li>
+<li><p><strong>Trend analysis</strong>: quantify year-to-year changes in high-transmission area and mean under-ice PAR</p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "icey_ecosystems"
+        },
+        kernelOptions: {
+            name: "icey_ecosystems",
+            path: "./content"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'icey_ecosystems'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="0_home.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">ICEY ECOSYSTEMS: Arctic Sea Ice Light Transmission For Assessing Under-Ice Ecosystem Dynamics</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-and-imports">Setup and imports</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#read-icesat-2-sea-ice-thickness">1. Read ICESat-2 sea ice thickness</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#b-quick-look-maps-for-the-selected-month">1b. Quick-look maps for the selected month</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#read-era5-cloud-cover-from-earthmover">2. Read ERA5 cloud cover from Earthmover</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variable-selection-multi-year-light-transmission-loop">3. Variable selection &amp; multi-year light transmission loop</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#beer-lambert-light-transmission-model-with-albedo-melt-ponds">4. Beer-Lambert light transmission model with albedo &amp; melt ponds</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#compare-inputs-and-outputs-across-years">5. Compare inputs and outputs across years</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#identify-high-transmission-regions-across-years-pack-ice">6. Identify high-transmission regions across years (pack ice)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-statistics-year-by-year-comparison-pack-ice-sic-sic-min">7. Summary statistics — year-by-year comparison (pack ice, SIC ≥ <code class="docutils literal notranslate"><span class="pre">SIC_MIN</span></code>)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretation">Interpretation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps">Next steps</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Alek Petty
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  Distributed under the MIT license
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
