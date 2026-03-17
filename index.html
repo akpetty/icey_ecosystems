@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exploring Icey Ecosystems Using ICESat-2 Data</title>
-    <meta name="description" content="A research project for assessing icey ecosystems using ICESat-2 data. This project is part of an NSF-funded DeCODER mini research proposal.">
+    <title>Arctic Sea Ice Light Transmission for Ecosystem Dynamics</title>
+    <meta name="description" content="Estimating under-ice photosynthetically active radiation (PAR) across the Arctic by coupling ICESat-2 sea ice thickness with ERA5 reanalysis in a Beer-Lambert light transmission model. Part of an NSF-funded DeCODER mini research proposal.">
     
     <!-- JSON-LD metadata for GeoCODES integration -->
     <!-- Following Science on Schema.org (SOS) best practices: https://github.com/ESIPFed/science-on-schema.org -->
@@ -12,19 +12,28 @@
     {
       "@context": "https://schema.org/",
       "@id": "https://akpetty.github.io/icey_ecosystems/",
-      "@type": "Dataset",
+      "@type": "SoftwareSourceCode",
       "name": "icey_ecosystems",
-      "description": "A research project for assessing icey ecosystems using ICESat-2 data. This project is part of an NSF-funded DeCODER mini research proposal.",
+      "description": "Estimating under-ice photosynthetically active radiation (PAR) across the Arctic by coupling ICESat-2 sea ice thickness and snow depth with ERA5 cloud cover in a Beer-Lambert light transmission model.",
       "url": "https://akpetty.github.io/icey_ecosystems/",
+      "codeRepository": "https://github.com/akpetty/icey_ecosystems",
+      "programmingLanguage": "Python",
       "keywords": [
-        "Geoscience",
-        "Ecosystems",
-        "Ice",
-        "EarthCube",
-        "Research",
-        "Ecology",
+        "Arctic",
+        "sea ice",
         "ICESat-2",
-        "DeCODER"
+        "ERA5",
+        "under-ice PAR",
+        "light transmission",
+        "Beer-Lambert",
+        "sea ice thickness",
+        "snow depth",
+        "melt ponds",
+        "phytoplankton",
+        "ice algae",
+        "EarthCube",
+        "DeCODER",
+        "Geoscience"
       ],
       "creator": [
         {
@@ -33,8 +42,8 @@
         }
       ],
       "datePublished": "2026-01-01",
-      "dateModified": "2026-01-20",
-      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "dateModified": "2026-03-17",
+      "license": "https://opensource.org/licenses/MIT",
       "publisher": {
         "@type": "Organization",
         "name": "EarthCube"
@@ -42,6 +51,10 @@
       "includedInDataCatalog": {
         "@type": "DataCatalog",
         "name": "GeoCODES"
+      },
+      "funder": {
+        "@type": "Organization",
+        "name": "National Science Foundation (NSF)"
       }
     }
     </script>
@@ -49,13 +62,16 @@
 <body>
     <header>
         <h1>icey_ecosystems</h1>
-        <p>A research project focused on ice-based ecosystems analysis</p>
+        <p>Arctic sea ice light transmission for ecosystem dynamics</p>
     </header>
     
     <main>
         <section>
             <h2>About</h2>
-            <p>This project contains code and data for analyzing ice-based ecosystems as part of a mini research proposal.</p>
+            <p>This project estimates under-ice photosynthetically active radiation (PAR)
+               across the Arctic Ocean by coupling ICESat-2 sea ice thickness and snow depth
+               with ERA5 cloud cover inside a Beer-Lambert light transmission model.
+               Results are compared across three Arctic summers (2019–2021).</p>
         </section>
         
         <section>
@@ -70,7 +86,7 @@
     </main>
     
     <footer>
-        <p>&copy; 2026, Alek Petty.</p>
+        <p>&copy; 2026, Alek Petty. MIT License.</p>
     </footer>
 </body>
 </html>

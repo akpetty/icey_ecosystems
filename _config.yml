@@ -1,5 +1,5 @@
 # Book settings
-title: Exploring Icey Ecosystems Using ICESat-2 Data
+title: Icey Ecosystems with ICESat-2 sea ice and ERA5 reanalysis data
 author: Alek Petty
 copyright: "2026"  # Copyright year to be placed in the footer
 
@@ -25,6 +25,8 @@ sphinx:
       - '_build/**'
       - '*.code-workspace'
       - '.venv/**'
+      - 'README.md'
+      - 'template.ipynb'
 
 # Interactive features
 interactive:
