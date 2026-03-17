@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>ICESat-2 Sea Ice Ecosystem Analysis &#8212; Exploring Icey Ecosystems Using ICESat-2 Data</title>
+    <title>ICEY ECOSYSTEMS: Arctic Sea Ice Light Transmission For Ecosystem Dynamics: Analysis with cloud-based ICESat-2 and ERA5 (Earthmover) data &#8212; Icey Ecosystems with ICESat-2 sea ice and ERA5 reanalysis data</title>
   
   
   
@@ -58,10 +58,12 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'content/0_home';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="ICESat-2 Sea Ice Ecosystem Analysis" href="1_analysis.html" />
+    <link rel="next" title="Arctic Sea Ice Light Transmission For Ecosystem Dynamics: Analysis with cloud-based ICESat-2 and ERA5 (Earthmover) data" href="1_analysis.html" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -71,19 +73,28 @@
 {
   "@context": "https://schema.org/",
   "@id": "https://akpetty.github.io/icey_ecosystems/",
-  "@type": "Dataset",
+  "@type": "SoftwareSourceCode",
   "name": "icey_ecosystems",
-  "description": "A research project for assessing icey ecosystems using ICESat-2 data. This project is part of an NSF-funded DeCODER mini research proposal.",
+  "description": "Estimating under-ice photosynthetically active radiation (PAR) across the Arctic by coupling ICESat-2 sea ice thickness and snow depth with ERA5 cloud cover in a Beer-Lambert light transmission model.",
   "url": "https://akpetty.github.io/icey_ecosystems/",
+  "codeRepository": "https://github.com/akpetty/icey_ecosystems",
+  "programmingLanguage": "Python",
   "keywords": [
-    "Geoscience",
-    "Ecosystems",
-    "Ice",
-    "EarthCube",
-    "Research",
-    "Ecology",
+    "Arctic",
+    "sea ice",
     "ICESat-2",
-    "DeCODER"
+    "ERA5",
+    "under-ice PAR",
+    "light transmission",
+    "Beer-Lambert",
+    "sea ice thickness",
+    "snow depth",
+    "melt ponds",
+    "phytoplankton",
+    "ice algae",
+    "EarthCube",
+    "DeCODER",
+    "Geoscience"
   ],
   "creator": [
     {
@@ -92,8 +103,8 @@
     }
   ],
   "datePublished": "2026-01-01",
-  "dateModified": "2026-01-20",
-  "license": "https://creativecommons.org/licenses/by/4.0/",
+  "dateModified": "2026-03-17",
+  "license": "https://opensource.org/licenses/MIT",
   "publisher": {
     "@type": "Organization",
     "name": "EarthCube"
@@ -101,6 +112,10 @@
   "includedInDataCatalog": {
     "@type": "DataCatalog",
     "name": "GeoCODES"
+  },
+  "funder": {
+    "@type": "Organization",
+    "name": "National Science Foundation (NSF)"
   }
 }
 </script>
@@ -185,13 +200,13 @@
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1 current active">
                 <a class="reference internal" href="#">
-                    ICESat-2 Sea Ice Ecosystem Analysis
+                    ICEY ECOSYSTEMS: Arctic Sea Ice Light Transmission For Ecosystem Dynamics: Analysis with cloud-based ICESat-2 and ERA5 (Earthmover) data
                 </a>
             </li>
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Analysis</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="1_analysis.html">ICESat-2 Sea Ice Ecosystem Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1_analysis.html">Arctic Sea Ice Light Transmission For Ecosystem Dynamics: Analysis with cloud-based ICESat-2 and ERA5 (Earthmover) data</a></li>
 </ul>
 
     </div>
@@ -394,7 +409,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>ICESat-2 Sea Ice Ecosystem Analysis</h1>
+    <h1>ICEY ECOSYSTEMS: Arctic Sea Ice Light Transmission For Ecosystem Dynamics: Analysis with cloud-based ICESat-2 and ERA5 (Earthmover) data</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -405,12 +420,12 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#background">Background</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#project-description">Project Description</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scientific-approach">Scientific Approach</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#datasets">Datasets</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#navigation">Navigation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#more-content-coming-soon">More Content Coming Soon</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#geocodes-integration">GeoCODES Integration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#future-directions">Future Directions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-the-book">Using the Book</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#geocodes-integration">GeoCODES Integration</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#license">License</a></li>
 </ul>
             </nav>
@@ -423,50 +438,110 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="icesat-2-sea-ice-ecosystem-analysis">
-<h1>ICESat-2 Sea Ice Ecosystem Analysis<a class="headerlink" href="#icesat-2-sea-ice-ecosystem-analysis" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="icey-ecosystems-arctic-sea-ice-light-transmission-for-ecosystem-dynamics-analysis-with-cloud-based-icesat-2-and-era5-earthmover-data">
+<h1>ICEY ECOSYSTEMS: Arctic Sea Ice Light Transmission For Ecosystem Dynamics: Analysis with cloud-based ICESat-2 and ERA5 (Earthmover) data<a class="headerlink" href="#icey-ecosystems-arctic-sea-ice-light-transmission-for-ecosystem-dynamics-analysis-with-cloud-based-icesat-2-and-era5-earthmover-data" title="Link to this heading">#</a></h1>
 <section id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Link to this heading">#</a></h2>
-<p>This Jupyter Book provides analysis and research on ice-based ecosystems using NASA’s Ice, Cloud, and Land Elevation Satellite-2 (ICESat-2) data. This project is part of an NSF-funded DeCODER (Data and Computing Opportunities for Discovery and Exploration Research) mini research proposal focused on understanding ecological systems in ice environments.</p>
+<p>This Jupyter Book estimates <strong>under-ice photosynthetically active radiation (PAR)</strong>
+across the Arctic Ocean by combining satellite-derived sea ice properties with
+atmospheric reanalysis data. Light beneath sea ice is a primary control on
+ice-algal and under-ice phytoplankton productivity, yet it is difficult to
+observe directly at basin scale. This project bridges that gap by coupling
+gridded ICESat-2 sea ice thickness and snow depth with ERA5 cloud cover inside a
+physically based Beer-Lambert light transmission model.</p>
+<p>The work is part of an NSF-funded DeCODER (Data and Computing Opportunities for
+Discovery and Exploration Research) mini research proposal focused on
+understanding ecological systems in ice environments, and contributes to the
+EarthCube GeoCODES initiative.</p>
 </section>
-<section id="background">
-<h2>Background<a class="headerlink" href="#background" title="Link to this heading">#</a></h2>
-<p>Ice-dominated ecosystems, particularly in polar and high-altitude regions, represent unique and fragile environments that are critical to understanding global ecological processes. These ecosystems are experiencing rapid changes due to climate warming, making it essential to develop robust methods for monitoring and analyzing their structure and dynamics.</p>
-<p>ICESat-2, launched in 2018, provides unprecedented high-resolution laser altimetry data with meter-scale horizontal resolution and centimeter-scale vertical precision. While primarily designed for ice sheet and sea ice thickness measurements, ICESat-2’s capabilities offer new opportunities for characterizing the three-dimensional structure of ice-based ecosystems, including surface topography, ice thickness variability, and habitat characteristics.</p>
+<section id="scientific-approach">
+<h2>Scientific Approach<a class="headerlink" href="#scientific-approach" title="Link to this heading">#</a></h2>
+<p>The analysis follows a multi-step workflow that traces solar radiation from the
+top of the atmosphere down through the cloud layer, snow cover, and sea ice to
+estimate the light available beneath the ice pack:</p>
+<ol class="arabic simple">
+<li><p><strong>Top-of-atmosphere (TOA) insolation</strong> — daily-mean solar flux computed from
+orbital geometry for a given latitude and day of year.</p></li>
+<li><p><strong>Cloud attenuation</strong> — TOA flux is reduced to a surface shortwave estimate
+using ERA5 total cloud cover and an empirical power-law parameterisation.</p></li>
+<li><p><strong>Multi-surface-type Beer-Lambert model</strong> — each ice-covered grid cell is
+partitioned into snow-covered ice, bare ice, and melt-pond sub-areas, each
+with distinct albedo, surface transmittance, and extinction properties.
+Transmitted radiation through each sub-area is computed via exponential decay
+through the snow and ice layers.</p></li>
+<li><p><strong>Grid-cell PAR</strong> — the ice-area transmittances are weighted by their
+respective fractions, combined with an open-water contribution scaled by sea
+ice concentration, and converted to PAR using a broadband-to-PAR ratio.</p></li>
+</ol>
+<p>The notebook compares results across three Arctic summers (2019–2021) for a
+user-selected month (default: June), focusing on pack ice where ICESat-2
+provides reliable thickness retrievals (SIC ≥ 0.5 by default).</p>
 </section>
-<section id="project-description">
-<h2>Project Description<a class="headerlink" href="#project-description" title="Link to this heading">#</a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">icey_ecosystems</span></code> repository contains code, data, and analysis notebooks for studying ice-based ecosystems using ICESat-2 data. This work aims to:</p>
-<ul class="simple">
-<li><p>Develop methods for extracting relevant data from ICESat-2 altimetry data</p></li>
-<li><p>Characterize the spatial and temporal variability of sea ice and ice-based ecosystem structures</p></li>
-<li><p>Advance our understanding of ecological processes in ice-dominated environments</p></li>
-<li><p>Provide open-source tools and analyses for the broader scientific community</p></li>
-</ul>
-<p>This project contributes to the EarthCube GeoCODES initiative by making ice ecosystem research more discoverable and accessible through standardized metadata and open data practices.</p>
+<section id="datasets">
+<h2>Datasets<a class="headerlink" href="#datasets" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Dataset</p></th>
+<th class="head"><p>Variables used</p></th>
+<th class="head"><p>Source</p></th>
+<th class="head"><p>Access method</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>ICESat-2 IS2SIT_SUMMER</strong> (monthly, 25 km EASE2 grid)</p></td>
+<td><p>Sea ice thickness, snow depth, sea ice concentration, freeboard</p></td>
+<td><p>NSIDC / NASA</p></td>
+<td><p>S3 Zarr store (<code class="docutils literal notranslate"><span class="pre">s3://icesat-2-sea-ice-us-west-2/</span></code>)</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>ICESat-2 IS2SITMOGR4 V4</strong> (monthly, 25 km EASE2 grid)</p></td>
+<td><p>Same variables, winter months (Nov–Apr, 2018–2025)</p></td>
+<td><p>NSIDC / NASA</p></td>
+<td><p>S3 Zarr store</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>ERA5 surface reanalysis</strong></p></td>
+<td><p>Total cloud cover (<code class="docutils literal notranslate"><span class="pre">tcc</span></code>)</p></td>
+<td><p>ECMWF via <a class="reference external" href="https://app.earthmover.io/marketplace/695bff20622fd82a1ec88780">Earthmover Arraylake catalog</a></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">arraylake</span></code> Python client</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>All data are accessed directly from cloud storage — no local downloads are
+required. Surface shortwave radiation is not read from ERA5 but derived in the
+notebook by combining ERA5 cloud cover with a computed TOA insolation field.</p>
 </section>
 <section id="navigation">
 <h2>Navigation<a class="headerlink" href="#navigation" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p>See the <a class="reference internal" href="1_analysis.html"><span class="doc std std-doc">Analysis notebook</span></a> for initial data exploration and analysis.</p></li>
+<li><p><strong><a class="reference internal" href="1_analysis.html"><span class="doc std std-doc">Analysis notebook</span></a></strong> — the main notebook: data loading,
+Beer-Lambert model, multi-year comparison maps, high-transmission region
+identification, and summary statistics.</p></li>
 </ul>
 </section>
-<section id="more-content-coming-soon">
-<h2>More Content Coming Soon<a class="headerlink" href="#more-content-coming-soon" title="Link to this heading">#</a></h2>
-<p>This book is under active development. Additional notebooks and analyses will be added in the future.</p>
-</section>
-<section id="geocodes-integration">
-<h2>GeoCODES Integration<a class="headerlink" href="#geocodes-integration" title="Link to this heading">#</a></h2>
-<p>This project is integrated with the <a class="reference external" href="https://geocodes.earthcube.org/#/landing">GeoCODES portal</a> to make it discoverable in the EarthCube search interface.</p>
+<section id="future-directions">
+<h2>Future Directions<a class="headerlink" href="#future-directions" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Replace broadband extinction with wavelength-dependent coefficients</p></li>
+<li><p>Use satellite-derived melt-pond fraction maps (e.g. MODIS) instead of a fixed value</p></li>
+<li><p>Extend to a full May–August seasonal cycle to capture the spring bloom window</p></li>
+<li><p>Validate modeled under-ice PAR against buoy-based observations</p></li>
+<li><p>Differentiate first-year vs. multi-year ice optical properties</p></li>
+</ul>
 </section>
 <section id="using-the-book">
 <h2>Using the Book<a class="headerlink" href="#using-the-book" title="Link to this heading">#</a></h2>
-<p>There are three different ways to use this Jupyter Book:</p>
+<p>There are three ways to use this Jupyter Book:</p>
 <ol class="arabic simple">
-<li><p>View the rendered Jupyter Notebooks by clicking through the links on the left. Note that there is no interactivity with this option.</p></li>
-<li><p>Run the Notebooks interactively in Binder. Just click the <strong>Binder</strong> tab under the rocket ship icon at the top of each Notebook.</p></li>
-<li><p>Clone (or fork then clone) the GitHub repository and run the Jupyter Notebooks locally. Just click the <strong>repository</strong> tab under the GitHub icon at the top of this page.</p></li>
+<li><p><strong>Browse</strong> — view the rendered notebooks by clicking through the links on the left.</p></li>
+<li><p><strong>Binder</strong> — run the notebooks interactively by clicking the <strong>Binder</strong> tab under the rocket ship icon at the top of each notebook.</p></li>
+<li><p><strong>Local</strong> — clone (or fork) the <a class="reference external" href="https://github.com/akpetty/icey_ecosystems">GitHub repository</a> and run locally with <code class="docutils literal notranslate"><span class="pre">uv</span> <span class="pre">sync</span></code> to set up the environment.</p></li>
 </ol>
+</section>
+<section id="geocodes-integration">
+<h2>GeoCODES Integration<a class="headerlink" href="#geocodes-integration" title="Link to this heading">#</a></h2>
+<p>This project is integrated with the
+<a class="reference external" href="https://geocodes.earthcube.org/#/landing">GeoCODES portal</a> to make it
+discoverable in the EarthCube search interface.</p>
 </section>
 <section id="license">
 <h2>License<a class="headerlink" href="#license" title="Link to this heading">#</a></h2>
@@ -511,7 +586,7 @@ document.write(`
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">ICESat-2 Sea Ice Ecosystem Analysis</p>
+        <p class="prev-next-title">Arctic Sea Ice Light Transmission For Ecosystem Dynamics: Analysis with cloud-based ICESat-2 and ERA5 (Earthmover) data</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -532,12 +607,12 @@ document.write(`
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#background">Background</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#project-description">Project Description</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scientific-approach">Scientific Approach</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#datasets">Datasets</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#navigation">Navigation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#more-content-coming-soon">More Content Coming Soon</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#geocodes-integration">GeoCODES Integration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#future-directions">Future Directions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-the-book">Using the Book</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#geocodes-integration">GeoCODES Integration</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#license">License</a></li>
 </ul>
   </nav></div>

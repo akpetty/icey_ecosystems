@@ -1,198 +1,214 @@
 # icey_ecosystems
 
-A research project focused on ice-based ecosystems analysis.
+Estimating under-ice light availability across the Arctic using ICESat-2 and ERA5.
 
 ## Overview
 
-This repository contains code and data for analyzing ice-based ecosystems as part of a mini research proposal. The project is organized as a Jupyter Book, providing an interactive and well-indexed collection of analysis notebooks.
+This repository estimates **under-ice photosynthetically active radiation (PAR)**
+by coupling NASA ICESat-2 sea ice thickness and snow depth with ERA5 cloud cover
+inside a Beer-Lambert light transmission model. The goal is to identify where and
+when enough light penetrates the pack ice to support ice-algal and under-ice
+phytoplankton productivity.
+
+The project is part of an NSF-funded DeCODER mini research proposal and is
+organised as a Jupyter Book.
+
+### Datasets
+
+| Dataset | Source | Access |
+|---|---|---|
+| ICESat-2 IS2SIT_SUMMER (monthly, 25 km EASE2) | NSIDC / NASA | S3 Zarr store |
+| ICESat-2 IS2SITMOGR4 V4 (monthly, 25 km EASE2) | NSIDC / NASA | S3 Zarr store |
+| ERA5 surface reanalysis (total cloud cover) | ECMWF / [Earthmover catalog](https://app.earthmover.io/marketplace/695bff20622fd82a1ec88780) | `arraylake` client |
+
+All data are accessed directly from cloud storage — no local downloads required.
+Surface shortwave radiation is derived from ERA5 cloud cover combined with a
+computed TOA insolation field.
+
+### Analysis workflow
+
+1. Compute daily-mean TOA insolation from solar geometry
+2. Attenuate through ERA5 cloud cover to get surface shortwave
+3. Partition ice-covered grid-cells into snow-covered, bare-ice, and melt-pond
+   sub-areas with distinct albedo and extinction properties
+4. Apply two-layer (snow + ice) Beer-Lambert decay to estimate transmittance
+5. Weight by sea ice concentration and convert to PAR
+6. Compare across three Arctic summers (2019–2021) for a user-selected month
 
 ## Jupyter Book
 
-This repository is structured as a Jupyter Book. To build and view the book locally, follow the setup instructions below, then:
+This repository is structured as a Jupyter Book. To build and view the book
+locally, follow the setup instructions below, then:
 
-1. Build the book:
-   ```bash
-   jb build .
-   ```
+```bash
+uv run jb build .
+```
 
-2. View the book by opening `_build/html/index.html` in your browser.
+Open `_build/html/index.html` in your browser to view the book.
 
-The book currently contains:
-- A homepage with project overview
-- An initial analysis notebook
+The book contains:
+- **Home** (`content/0_home.md`) — project summary, dataset descriptions, and
+  scientific approach
+- **Analysis notebook** (`content/1_analysis.ipynb`) — data loading, Beer-Lambert
+  model, multi-year comparison maps, high-transmission region identification, and
+  summary statistics
+- **Utilities** (`content/utils.py`) — reusable helper functions (TOA insolation,
+  ERA5 regridding, Arctic map styling)
 
 More notebooks and content will be added in the future.
 
-## GeoCODES Integration
-
-This project is integrated with the [GeoCODES portal](https://geocodes.earthcube.org/#/landing) to make it discoverable in the EarthCube search interface. The metadata is embedded in the landing page using JSON-LD format following the Science on Schema (SOS) pattern.
-
 ## Setup
 
-### UV Environment Setup
+All dependencies are managed with [uv](https://docs.astral.sh/uv/) via `pyproject.toml`. There is no `requirements.txt` — uv handles everything through its lock file (`uv.lock`).
 
-UV is a fast Python package installer and resolver. It's significantly faster than conda and handles Python package management more efficiently.
+### Prerequisites
 
-#### Prerequisites
-Install UV first:
+Install uv (one-time):
+
 ```bash
 curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
-#### Creating the UV Environment
-
-UV will automatically create a `.venv` directory in the project root. This is the standard location and is already excluded from Jupyter Book builds.
+### Install and activate
 
 ```bash
-# From the icey_ecosystems directory, sync dependencies from pyproject.toml
-# This will create .venv automatically and install all dependencies
+# Clone the repo and cd into it
+git clone https://github.com/akpetty/icey_ecosystems.git
+cd icey_ecosystems
+
+# Create .venv and install all dependencies (one command)
 uv sync
 
 # Activate the environment
-source .venv/bin/activate  # On macOS/Linux
-# or
-.venv\Scripts\activate     # On Windows
-
-# Verify jupyter-book is installed
-uv run jb --help
+source .venv/bin/activate   # macOS / Linux
 ```
 
-#### Adding as Jupyter Kernel
-To use this environment in Jupyter notebooks:
-```bash
-# Activate the environment first
-source .venv/bin/activate  # On macOS/Linux
-# or
-.venv\Scripts\activate     # On Windows
+That's it. `uv sync` reads `pyproject.toml`, resolves versions, creates `.venv/`, and installs everything.
 
-# Install as Jupyter kernel
+### Register the Jupyter kernel
+
+So notebooks can find the environment:
+
+```bash
+source .venv/bin/activate
 python -m ipykernel install --user --name icey_ecosystems --display-name "Icey Ecosystems"
 ```
 
-**Note**: Some geospatial packages (cartopy, rasterio) may require system-level libraries (GEOS, PROJ, GDAL). Install these with your system package manager if needed.
+Then select **"Icey Ecosystems"** as the kernel in Jupyter or VS Code / Cursor.
 
-#### Building the Jupyter Book
-To build the Jupyter Book using the UV environment:
+### Running commands without activating
+
+You can skip `source .venv/bin/activate` and prefix any command with `uv run`:
+
 ```bash
-# From the icey_ecosystems directory, you can either:
-
-# Option 1: Activate the environment and build
-source .venv/bin/activate  # On macOS/Linux
-jb build .
-
-# Option 2: Use uv run (no activation needed)
+uv run jupyter lab
 uv run jb build .
+uv run python my_script.py
 ```
 
-#### Deploying to GitHub Pages
+## Managing dependencies
 
-**First, create the GitHub repository:**
-1. Go to [GitHub](https://github.com) and create a new repository named `icey_ecosystems`
-2. Initialize and push your code:
-   ```bash
-   git init
-   git add .
-   git commit -m "Initial commit"
-   git branch -M main
-   git remote add origin https://github.com/akpetty/icey_ecosystems.git
-   git push -u origin main
-   ```
+### Add a package
 
-**Then, build and deploy the book:**
 ```bash
-# Make sure the environment is activated
-source .venv/bin/activate  # On macOS/Linux
-
-# Build the book
-jb build .
-
-# Deploy to GitHub Pages (this pushes to the gh-pages branch)
-# Note: Do NOT use -c flag unless you want a custom domain
-# This ensures no CNAME file is created
-ghp-import -n -p _build/html
-
-# If a CNAME file exists and you want to remove it, you can delete it manually:
-# git checkout gh-pages
-# git rm CNAME  # if it exists
-# git commit -m "Remove CNAME"
-# git push origin gh-pages
-# git checkout main
-
-# If you have a custom domain, use the -c flag:
-# ghp-import -n -p -c yourdomain.com _build/html
+uv add <package>            # e.g. uv add seaborn
+uv add "<package>>=1.2.0"   # with a version constraint
 ```
 
-The flags mean:
-- `-n`: Don't use Jekyll processing
-- `-p`: Push to GitHub
-- `-c`: Create/update CNAME file for custom domain (optional)
+This updates `pyproject.toml` and `uv.lock` in one step.
 
-After running this, your book will be available at `https://YOUR_USERNAME.github.io/icey_ecosystems/`
+### Remove a package
 
-**Note:** Make sure GitHub Pages is enabled in your repository settings (Settings > Pages) and set to use the `gh-pages` branch.
+```bash
+uv remove <package>
+```
 
-### GeoCODES Integration Setup
+### Update all packages to latest compatible versions
 
-This project is integrated with the [GeoCODES portal](https://geocodes.earthcube.org/#/landing) to make it discoverable in the EarthCube search interface. The metadata is embedded in the landing page using JSON-LD format following the Science on Schema (SOS) pattern.
+```bash
+uv lock --upgrade
+uv sync
+```
 
-#### Steps to Complete
+### Update a single package
 
-1. **Update the JSON-LD Metadata**
+```bash
+uv lock --upgrade-package <package>
+uv sync
+```
 
-   Edit `index.html` and update the following fields:
-   - Replace `YOUR_USERNAME` with your actual GitHub username in the `url` field
-   - Update the `creator` name with your actual name
-   - Adjust the `datePublished` if needed
-   - Modify the `description` to match your specific research proposal
+### Regenerate the lock file from scratch
 
-2. **Enable GitHub Pages**
+If things get tangled:
 
-   1. Go to your repository on GitHub
-   2. Navigate to **Settings** > **Pages**
-   3. Under "Source", select the branch (usually `main` or `master`)
-   4. Select the folder (usually `/ (root)`)
-   5. Click **Save**
-   6. Your site will be available at `https://YOUR_USERNAME.github.io/icey_ecosystems/`
+```bash
+rm uv.lock
+uv sync
+```
 
-3. **Update the Repository URL**
+### Export a requirements.txt (for collaborators not using uv)
 
-   After enabling GitHub Pages, update the `url` field in `index.html` to match your actual GitHub Pages URL.
+```bash
+uv export --format requirements-txt > requirements.txt
+```
 
-4. **Register with GeoCODES**
+## Building and deploying the Jupyter Book
 
-   Once your landing page is live:
-   1. Visit the [EarthCube Resource Registry](https://www.earthcube.org/geocodes)
-   2. Register your resource by providing your GitHub Pages URL
-   3. The GeoCODES crawler will index your metadata
+```bash
+# Build
+uv run jb build .
 
-5. **Validate Your Metadata**
+# Deploy to GitHub Pages
+uv run ghp-import -n -p _build/html
+```
 
-   Before submitting, validate your JSON-LD:
-   - Use [Google Rich Results Test](https://search.google.com/test/rich-results)
-   - Use [Schema.org Validator](https://validator.schema.org/)
+The book will be available at `https://akpetty.github.io/icey_ecosystems/`.
 
-#### Required Schema.org Properties
+Make sure GitHub Pages is enabled in your repository settings (Settings > Pages) using the `gh-pages` branch.
 
-The JSON-LD in `index.html` includes the minimum required properties:
-- `@context`: Schema.org context
-- `@type`: Dataset (or SoftwareSourceCode if it's primarily code)
-- `name`: Project name
-- `description`: Project description
-- `url`: Landing page URL
-- `keywords`: Relevant search terms
-- `creator`: Author information
-- `license`: License information
+## Discoverability & GeoCODES Integration
 
-#### Additional Resources
+This project follows [Science on Schema.org (SOS)](https://github.com/ESIPFed/science-on-schema.org)
+best practices to make the analysis discoverable through search engines and the
+[GeoCODES portal](https://geocodes.earthcube.org/#/landing).
 
-- [GeoCODES Portal](https://geocodes.earthcube.org/#/landing)
-- [Schema.org Documentation](https://schema.org/)
-- [EarthCube GeoCODES Info](https://www.earthcube.org/geocodes)
+### What we embed
 
-## Usage
+Structured [JSON-LD](https://json-ld.org/) metadata is injected into every page
+of the Jupyter Book (via `_templates/layout.html`) and into the standalone
+landing page (`index.html`). The metadata uses the `SoftwareSourceCode` schema
+type and includes:
 
-[Add usage instructions here]
+- Project name, description, and URL
+- Domain-specific keywords (Arctic, sea ice, ICESat-2, ERA5, under-ice PAR,
+  Beer-Lambert, melt ponds, etc.)
+- Creator, publisher (EarthCube), and funder (NSF)
+- License (MIT)
+- Link to the GitHub repository
+
+### Validation tools
+
+After deploying to GitHub Pages, validate the metadata with:
+
+| Tool | What it checks |
+|---|---|
+| [Google Rich Results Test](https://search.google.com/test/rich-results) | Whether Google can parse the structured data and generate rich search results |
+| [Schema.org Validator](https://validator.schema.org/) | Full conformance against the Schema.org specification |
+
+Paste `https://akpetty.github.io/icey_ecosystems/` into either tool after
+deployment.
+
+### Maintaining the metadata
+
+When the project scope or datasets change:
+
+1. Update the JSON-LD in both `index.html` and `_templates/layout.html` (keep
+   them in sync).
+2. Bump `dateModified` to the current date.
+3. Re-run the validation tools above after deploying.
+4. If registering for the first time, submit the GitHub Pages URL at the
+   [EarthCube Resource Registry](https://www.earthcube.org/geocodes).
 
 ## License
 
-[Add license information here]
+MIT — see the [home page](content/0_home.md) for details.

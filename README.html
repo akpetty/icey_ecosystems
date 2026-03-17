@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>icey_ecosystems &#8212; Exploring Icey Ecosystems Using ICESat-2 Data</title>
+    <title>icey_ecosystems &#8212; Arctic Sea Ice Light Transmission for Ecosystem Dynamics</title>
   
   
   
@@ -70,19 +70,28 @@
 {
   "@context": "https://schema.org/",
   "@id": "https://akpetty.github.io/icey_ecosystems/",
-  "@type": "Dataset",
+  "@type": "SoftwareSourceCode",
   "name": "icey_ecosystems",
-  "description": "A research project for assessing icey ecosystems using ICESat-2 data. This project is part of an NSF-funded DeCODER mini research proposal.",
+  "description": "Estimating under-ice photosynthetically active radiation (PAR) across the Arctic by coupling ICESat-2 sea ice thickness and snow depth with ERA5 cloud cover in a Beer-Lambert light transmission model.",
   "url": "https://akpetty.github.io/icey_ecosystems/",
+  "codeRepository": "https://github.com/akpetty/icey_ecosystems",
+  "programmingLanguage": "Python",
   "keywords": [
-    "Geoscience",
-    "Ecosystems",
-    "Ice",
-    "EarthCube",
-    "Research",
-    "Ecology",
+    "Arctic",
+    "sea ice",
     "ICESat-2",
-    "DeCODER"
+    "ERA5",
+    "under-ice PAR",
+    "light transmission",
+    "Beer-Lambert",
+    "sea ice thickness",
+    "snow depth",
+    "melt ponds",
+    "phytoplankton",
+    "ice algae",
+    "EarthCube",
+    "DeCODER",
+    "Geoscience"
   ],
   "creator": [
     {
@@ -91,8 +100,8 @@
     }
   ],
   "datePublished": "2026-01-01",
-  "dateModified": "2026-01-20",
-  "license": "https://creativecommons.org/licenses/by/4.0/",
+  "dateModified": "2026-03-17",
+  "license": "https://opensource.org/licenses/MIT",
   "publisher": {
     "@type": "Organization",
     "name": "EarthCube"
@@ -100,6 +109,10 @@
   "includedInDataCatalog": {
     "@type": "DataCatalog",
     "name": "GeoCODES"
+  },
+  "funder": {
+    "@type": "Organization",
+    "name": "National Science Foundation (NSF)"
   }
 }
 </script>
@@ -184,13 +197,13 @@
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
                 <a class="reference internal" href="content/0_home.html">
-                    Ice-Based Ecosystems Research
+                    ICEY ECOSYSTEMS: Arctic Sea Ice Light Transmission For Ecosystem Dynamics: Analysis with cloud-based ICESat-2 and ERA5 (Earthmover) data
                 </a>
             </li>
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Analysis</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="content/1_analysis.html">Ice-Based Ecosystems Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/1_analysis.html">Arctic Sea Ice Light Transmission For Ecosystem Dynamics: Analysis with cloud-based ICESat-2 and ERA5 (Earthmover) data</a></li>
 </ul>
 
     </div>
@@ -403,27 +416,35 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#datasets">Datasets</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis-workflow">Analysis workflow</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jupyter-book">Jupyter Book</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#geocodes-integration">GeoCODES Integration</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#uv-environment-setup">UV Environment Setup</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">Prerequisites</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-the-uv-environment">Creating the UV Environment</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-as-jupyter-kernel">Adding as Jupyter Kernel</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#building-the-jupyter-book">Building the Jupyter Book</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#deploying-to-github-pages">Deploying to GitHub Pages</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">Prerequisites</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#install-and-activate">Install and activate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#register-the-jupyter-kernel">Register the Jupyter kernel</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#running-commands-without-activating">Running commands without activating</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#geocodes-integration-setup">GeoCODES Integration Setup</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#steps-to-complete">Steps to Complete</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#required-schema-org-properties">Required Schema.org Properties</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#additional-resources">Additional Resources</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#managing-dependencies">Managing dependencies</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#add-a-package">Add a package</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#remove-a-package">Remove a package</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#update-all-packages-to-latest-compatible-versions">Update all packages to latest compatible versions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#update-a-single-package">Update a single package</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regenerate-the-lock-file-from-scratch">Regenerate the lock file from scratch</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#export-a-requirements-txt-for-collaborators-not-using-uv">Export a requirements.txt (for collaborators not using uv)</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#building-and-deploying-the-jupyter-book">Building and deploying the Jupyter Book</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discoverability-geocodes-integration">Discoverability &amp; GeoCODES Integration</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-we-embed">What we embed</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-tools">Validation tools</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#maintaining-the-metadata">Maintaining the metadata</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#usage">Usage</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#license">License</a></li>
 </ul>
             </nav>
@@ -438,215 +459,237 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="icey-ecosystems">
 <h1>icey_ecosystems<a class="headerlink" href="#icey-ecosystems" title="Link to this heading">#</a></h1>
-<p>A research project focused on ice-based ecosystems analysis.</p>
+<p>Estimating under-ice light availability across the Arctic using ICESat-2 and ERA5.</p>
 <section id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Link to this heading">#</a></h2>
-<p>This repository contains code and data for analyzing ice-based ecosystems as part of a mini research proposal. The project is organized as a Jupyter Book, providing an interactive and well-indexed collection of analysis notebooks.</p>
+<p>This repository estimates <strong>under-ice photosynthetically active radiation (PAR)</strong>
+by coupling NASA ICESat-2 sea ice thickness and snow depth with ERA5 cloud cover
+inside a Beer-Lambert light transmission model. The goal is to identify where and
+when enough light penetrates the pack ice to support ice-algal and under-ice
+phytoplankton productivity.</p>
+<p>The project is part of an NSF-funded DeCODER mini research proposal and is
+organised as a Jupyter Book.</p>
+<section id="datasets">
+<h3>Datasets<a class="headerlink" href="#datasets" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Dataset</p></th>
+<th class="head"><p>Source</p></th>
+<th class="head"><p>Access</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ICESat-2 IS2SIT_SUMMER (monthly, 25 km EASE2)</p></td>
+<td><p>NSIDC / NASA</p></td>
+<td><p>S3 Zarr store</p></td>
+</tr>
+<tr class="row-odd"><td><p>ICESat-2 IS2SITMOGR4 V4 (monthly, 25 km EASE2)</p></td>
+<td><p>NSIDC / NASA</p></td>
+<td><p>S3 Zarr store</p></td>
+</tr>
+<tr class="row-even"><td><p>ERA5 surface reanalysis (total cloud cover)</p></td>
+<td><p>ECMWF / <a class="reference external" href="https://app.earthmover.io/marketplace/695bff20622fd82a1ec88780">Earthmover catalog</a></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">arraylake</span></code> client</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>All data are accessed directly from cloud storage — no local downloads required.
+Surface shortwave radiation is derived from ERA5 cloud cover combined with a
+computed TOA insolation field.</p>
+</section>
+<section id="analysis-workflow">
+<h3>Analysis workflow<a class="headerlink" href="#analysis-workflow" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Compute daily-mean TOA insolation from solar geometry</p></li>
+<li><p>Attenuate through ERA5 cloud cover to get surface shortwave</p></li>
+<li><p>Partition ice-covered grid-cells into snow-covered, bare-ice, and melt-pond
+sub-areas with distinct albedo and extinction properties</p></li>
+<li><p>Apply two-layer (snow + ice) Beer-Lambert decay to estimate transmittance</p></li>
+<li><p>Weight by sea ice concentration and convert to PAR</p></li>
+<li><p>Compare across three Arctic summers (2019–2021) for a user-selected month</p></li>
+</ol>
+</section>
 </section>
 <section id="jupyter-book">
 <h2>Jupyter Book<a class="headerlink" href="#jupyter-book" title="Link to this heading">#</a></h2>
-<p>This repository is structured as a Jupyter Book. To build and view the book locally, follow the setup instructions below, then:</p>
-<ol class="arabic">
-<li><p>Build the book:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>jb<span class="w"> </span>build<span class="w"> </span>.
+<p>This repository is structured as a Jupyter Book. To build and view the book
+locally, follow the setup instructions below, then:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>uv<span class="w"> </span>run<span class="w"> </span>jb<span class="w"> </span>build<span class="w"> </span>.
 </pre></div>
 </div>
-</li>
-<li><p>View the book by opening <code class="docutils literal notranslate"><span class="pre">_build/html/index.html</span></code> in your browser.</p></li>
-</ol>
-<p>The book currently contains:</p>
+<p>Open <code class="docutils literal notranslate"><span class="pre">_build/html/index.html</span></code> in your browser to view the book.</p>
+<p>The book contains:</p>
 <ul class="simple">
-<li><p>A homepage with project overview</p></li>
-<li><p>An initial analysis notebook</p></li>
+<li><p><strong>Home</strong> (<code class="docutils literal notranslate"><span class="pre">content/0_home.md</span></code>) — project summary, dataset descriptions, and
+scientific approach</p></li>
+<li><p><strong>Analysis notebook</strong> (<code class="docutils literal notranslate"><span class="pre">content/1_analysis.ipynb</span></code>) — data loading, Beer-Lambert
+model, multi-year comparison maps, high-transmission region identification, and
+summary statistics</p></li>
+<li><p><strong>Utilities</strong> (<code class="docutils literal notranslate"><span class="pre">content/utils.py</span></code>) — reusable helper functions (TOA insolation,
+ERA5 regridding, Arctic map styling)</p></li>
 </ul>
 <p>More notebooks and content will be added in the future.</p>
 </section>
-<section id="geocodes-integration">
-<h2>GeoCODES Integration<a class="headerlink" href="#geocodes-integration" title="Link to this heading">#</a></h2>
-<p>This project is integrated with the <a class="reference external" href="https://geocodes.earthcube.org/#/landing">GeoCODES portal</a> to make it discoverable in the EarthCube search interface. The metadata is embedded in the landing page using JSON-LD format following the Science on Schema (SOS) pattern.</p>
-</section>
 <section id="setup">
 <h2>Setup<a class="headerlink" href="#setup" title="Link to this heading">#</a></h2>
-<section id="uv-environment-setup">
-<h3>UV Environment Setup<a class="headerlink" href="#uv-environment-setup" title="Link to this heading">#</a></h3>
-<p>UV is a fast Python package installer and resolver. It’s significantly faster than conda and handles Python package management more efficiently.</p>
+<p>All dependencies are managed with <a class="reference external" href="https://docs.astral.sh/uv/">uv</a> via <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code>. There is no <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> — uv handles everything through its lock file (<code class="docutils literal notranslate"><span class="pre">uv.lock</span></code>).</p>
 <section id="prerequisites">
-<h4>Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading">#</a></h4>
-<p>Install UV first:</p>
+<h3>Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading">#</a></h3>
+<p>Install uv (one-time):</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-LsSf<span class="w"> </span>https://astral.sh/uv/install.sh<span class="w"> </span><span class="p">|</span><span class="w"> </span>sh
 </pre></div>
 </div>
 </section>
-<section id="creating-the-uv-environment">
-<h4>Creating the UV Environment<a class="headerlink" href="#creating-the-uv-environment" title="Link to this heading">#</a></h4>
-<p>UV will automatically create a <code class="docutils literal notranslate"><span class="pre">.venv</span></code> directory in the project root. This is the standard location and is already excluded from Jupyter Book builds.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># From the icey_ecosystems directory, sync dependencies from pyproject.toml</span>
-<span class="c1"># This will create .venv automatically and install all dependencies</span>
+<section id="install-and-activate">
+<h3>Install and activate<a class="headerlink" href="#install-and-activate" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Clone the repo and cd into it</span>
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/akpetty/icey_ecosystems.git
+<span class="nb">cd</span><span class="w"> </span>icey_ecosystems
+
+<span class="c1"># Create .venv and install all dependencies (one command)</span>
 uv<span class="w"> </span>sync
 
 <span class="c1"># Activate the environment</span>
-<span class="nb">source</span><span class="w"> </span>.venv/bin/activate<span class="w">  </span><span class="c1"># On macOS/Linux</span>
-<span class="c1"># or</span>
-.venv<span class="se">\S</span>cripts<span class="se">\a</span>ctivate<span class="w">     </span><span class="c1"># On Windows</span>
-
-<span class="c1"># Verify jupyter-book is installed</span>
-uv<span class="w"> </span>run<span class="w"> </span>jb<span class="w"> </span>--help
+<span class="nb">source</span><span class="w"> </span>.venv/bin/activate<span class="w">   </span><span class="c1"># macOS / Linux</span>
 </pre></div>
 </div>
+<p>That’s it. <code class="docutils literal notranslate"><span class="pre">uv</span> <span class="pre">sync</span></code> reads <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code>, resolves versions, creates <code class="docutils literal notranslate"><span class="pre">.venv/</span></code>, and installs everything.</p>
 </section>
-<section id="adding-as-jupyter-kernel">
-<h4>Adding as Jupyter Kernel<a class="headerlink" href="#adding-as-jupyter-kernel" title="Link to this heading">#</a></h4>
-<p>To use this environment in Jupyter notebooks:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Activate the environment first</span>
-<span class="nb">source</span><span class="w"> </span>.venv/bin/activate<span class="w">  </span><span class="c1"># On macOS/Linux</span>
-<span class="c1"># or</span>
-.venv<span class="se">\S</span>cripts<span class="se">\a</span>ctivate<span class="w">     </span><span class="c1"># On Windows</span>
-
-<span class="c1"># Install as Jupyter kernel</span>
+<section id="register-the-jupyter-kernel">
+<h3>Register the Jupyter kernel<a class="headerlink" href="#register-the-jupyter-kernel" title="Link to this heading">#</a></h3>
+<p>So notebooks can find the environment:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span><span class="w"> </span>.venv/bin/activate
 python<span class="w"> </span>-m<span class="w"> </span>ipykernel<span class="w"> </span>install<span class="w"> </span>--user<span class="w"> </span>--name<span class="w"> </span>icey_ecosystems<span class="w"> </span>--display-name<span class="w"> </span><span class="s2">&quot;Icey Ecosystems&quot;</span>
 </pre></div>
 </div>
-<p><strong>Note</strong>: Some geospatial packages (cartopy, rasterio) may require system-level libraries (GEOS, PROJ, GDAL). Install these with your system package manager if needed.</p>
+<p>Then select <strong>“Icey Ecosystems”</strong> as the kernel in Jupyter or VS Code / Cursor.</p>
 </section>
-<section id="building-the-jupyter-book">
-<h4>Building the Jupyter Book<a class="headerlink" href="#building-the-jupyter-book" title="Link to this heading">#</a></h4>
-<p>To build the Jupyter Book using the UV environment:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># From the icey_ecosystems directory, you can either:</span>
-
-<span class="c1"># Option 1: Activate the environment and build</span>
-<span class="nb">source</span><span class="w"> </span>.venv/bin/activate<span class="w">  </span><span class="c1"># On macOS/Linux</span>
-jb<span class="w"> </span>build<span class="w"> </span>.
-
-<span class="c1"># Option 2: Use uv run (no activation needed)</span>
+<section id="running-commands-without-activating">
+<h3>Running commands without activating<a class="headerlink" href="#running-commands-without-activating" title="Link to this heading">#</a></h3>
+<p>You can skip <code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">.venv/bin/activate</span></code> and prefix any command with <code class="docutils literal notranslate"><span class="pre">uv</span> <span class="pre">run</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>uv<span class="w"> </span>run<span class="w"> </span>jupyter<span class="w"> </span>lab
 uv<span class="w"> </span>run<span class="w"> </span>jb<span class="w"> </span>build<span class="w"> </span>.
+uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>my_script.py
 </pre></div>
 </div>
 </section>
-<section id="deploying-to-github-pages">
-<h4>Deploying to GitHub Pages<a class="headerlink" href="#deploying-to-github-pages" title="Link to this heading">#</a></h4>
-<p><strong>First, create the GitHub repository:</strong></p>
-<ol class="arabic">
-<li><p>Go to <a class="reference external" href="https://github.com">GitHub</a> and create a new repository named <code class="docutils literal notranslate"><span class="pre">icey_ecosystems</span></code></p></li>
-<li><p>Initialize and push your code:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>init
-git<span class="w"> </span>add<span class="w"> </span>.
-git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Initial commit&quot;</span>
-git<span class="w"> </span>branch<span class="w"> </span>-M<span class="w"> </span>main
-git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>origin<span class="w"> </span>https://github.com/akpetty/icey_ecosystems.git
-git<span class="w"> </span>push<span class="w"> </span>-u<span class="w"> </span>origin<span class="w"> </span>main
+</section>
+<section id="managing-dependencies">
+<h2>Managing dependencies<a class="headerlink" href="#managing-dependencies" title="Link to this heading">#</a></h2>
+<section id="add-a-package">
+<h3>Add a package<a class="headerlink" href="#add-a-package" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>uv<span class="w"> </span>add<span class="w"> </span>&lt;package&gt;<span class="w">            </span><span class="c1"># e.g. uv add seaborn</span>
+uv<span class="w"> </span>add<span class="w"> </span><span class="s2">&quot;&lt;package&gt;&gt;=1.2.0&quot;</span><span class="w">   </span><span class="c1"># with a version constraint</span>
 </pre></div>
 </div>
-</li>
-</ol>
-<p><strong>Then, build and deploy the book:</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Make sure the environment is activated</span>
-<span class="nb">source</span><span class="w"> </span>.venv/bin/activate<span class="w">  </span><span class="c1"># On macOS/Linux</span>
-
-<span class="c1"># Build the book</span>
-jb<span class="w"> </span>build<span class="w"> </span>.
-
-<span class="c1"># Deploy to GitHub Pages (this pushes to the gh-pages branch)</span>
-<span class="c1"># Note: Do NOT use -c flag unless you want a custom domain</span>
-<span class="c1"># This ensures no CNAME file is created</span>
-ghp-import<span class="w"> </span>-n<span class="w"> </span>-p<span class="w"> </span>_build/html
-
-<span class="c1"># If a CNAME file exists and you want to remove it, you can delete it manually:</span>
-<span class="c1"># git checkout gh-pages</span>
-<span class="c1"># git rm CNAME  # if it exists</span>
-<span class="c1"># git commit -m &quot;Remove CNAME&quot;</span>
-<span class="c1"># git push origin gh-pages</span>
-<span class="c1"># git checkout main</span>
-
-<span class="c1"># If you have a custom domain, use the -c flag:</span>
-<span class="c1"># ghp-import -n -p -c yourdomain.com _build/html</span>
+<p>This updates <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> and <code class="docutils literal notranslate"><span class="pre">uv.lock</span></code> in one step.</p>
+</section>
+<section id="remove-a-package">
+<h3>Remove a package<a class="headerlink" href="#remove-a-package" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>uv<span class="w"> </span>remove<span class="w"> </span>&lt;package&gt;
 </pre></div>
 </div>
-<p>The flags mean:</p>
+</section>
+<section id="update-all-packages-to-latest-compatible-versions">
+<h3>Update all packages to latest compatible versions<a class="headerlink" href="#update-all-packages-to-latest-compatible-versions" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>uv<span class="w"> </span>lock<span class="w"> </span>--upgrade
+uv<span class="w"> </span>sync
+</pre></div>
+</div>
+</section>
+<section id="update-a-single-package">
+<h3>Update a single package<a class="headerlink" href="#update-a-single-package" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>uv<span class="w"> </span>lock<span class="w"> </span>--upgrade-package<span class="w"> </span>&lt;package&gt;
+uv<span class="w"> </span>sync
+</pre></div>
+</div>
+</section>
+<section id="regenerate-the-lock-file-from-scratch">
+<h3>Regenerate the lock file from scratch<a class="headerlink" href="#regenerate-the-lock-file-from-scratch" title="Link to this heading">#</a></h3>
+<p>If things get tangled:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rm<span class="w"> </span>uv.lock
+uv<span class="w"> </span>sync
+</pre></div>
+</div>
+</section>
+<section id="export-a-requirements-txt-for-collaborators-not-using-uv">
+<h3>Export a requirements.txt (for collaborators not using uv)<a class="headerlink" href="#export-a-requirements-txt-for-collaborators-not-using-uv" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>uv<span class="w"> </span><span class="nb">export</span><span class="w"> </span>--format<span class="w"> </span>requirements-txt<span class="w"> </span>&gt;<span class="w"> </span>requirements.txt
+</pre></div>
+</div>
+</section>
+</section>
+<section id="building-and-deploying-the-jupyter-book">
+<h2>Building and deploying the Jupyter Book<a class="headerlink" href="#building-and-deploying-the-jupyter-book" title="Link to this heading">#</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Build</span>
+uv<span class="w"> </span>run<span class="w"> </span>jb<span class="w"> </span>build<span class="w"> </span>.
+
+<span class="c1"># Deploy to GitHub Pages</span>
+uv<span class="w"> </span>run<span class="w"> </span>ghp-import<span class="w"> </span>-n<span class="w"> </span>-p<span class="w"> </span>_build/html
+</pre></div>
+</div>
+<p>The book will be available at <code class="docutils literal notranslate"><span class="pre">https://akpetty.github.io/icey_ecosystems/</span></code>.</p>
+<p>Make sure GitHub Pages is enabled in your repository settings (Settings &gt; Pages) using the <code class="docutils literal notranslate"><span class="pre">gh-pages</span></code> branch.</p>
+</section>
+<section id="discoverability-geocodes-integration">
+<h2>Discoverability &amp; GeoCODES Integration<a class="headerlink" href="#discoverability-geocodes-integration" title="Link to this heading">#</a></h2>
+<p>This project follows <a class="reference external" href="https://github.com/ESIPFed/science-on-schema.org">Science on Schema.org (SOS)</a>
+best practices to make the analysis discoverable through search engines and the
+<a class="reference external" href="https://geocodes.earthcube.org/#/landing">GeoCODES portal</a>.</p>
+<section id="what-we-embed">
+<h3>What we embed<a class="headerlink" href="#what-we-embed" title="Link to this heading">#</a></h3>
+<p>Structured <a class="reference external" href="https://json-ld.org/">JSON-LD</a> metadata is injected into every page
+of the Jupyter Book (via <code class="docutils literal notranslate"><span class="pre">_templates/layout.html</span></code>) and into the standalone
+landing page (<code class="docutils literal notranslate"><span class="pre">index.html</span></code>). The metadata uses the <code class="docutils literal notranslate"><span class="pre">SoftwareSourceCode</span></code> schema
+type and includes:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">-n</span></code>: Don’t use Jekyll processing</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">-p</span></code>: Push to GitHub</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">-c</span></code>: Create/update CNAME file for custom domain (optional)</p></li>
+<li><p>Project name, description, and URL</p></li>
+<li><p>Domain-specific keywords (Arctic, sea ice, ICESat-2, ERA5, under-ice PAR,
+Beer-Lambert, melt ponds, etc.)</p></li>
+<li><p>Creator, publisher (EarthCube), and funder (NSF)</p></li>
+<li><p>License (MIT)</p></li>
+<li><p>Link to the GitHub repository</p></li>
 </ul>
-<p>After running this, your book will be available at <code class="docutils literal notranslate"><span class="pre">https://YOUR_USERNAME.github.io/icey_ecosystems/</span></code></p>
-<p><strong>Note:</strong> Make sure GitHub Pages is enabled in your repository settings (Settings &gt; Pages) and set to use the <code class="docutils literal notranslate"><span class="pre">gh-pages</span></code> branch.</p>
 </section>
+<section id="validation-tools">
+<h3>Validation tools<a class="headerlink" href="#validation-tools" title="Link to this heading">#</a></h3>
+<p>After deploying to GitHub Pages, validate the metadata with:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Tool</p></th>
+<th class="head"><p>What it checks</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference external" href="https://search.google.com/test/rich-results">Google Rich Results Test</a></p></td>
+<td><p>Whether Google can parse the structured data and generate rich search results</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://validator.schema.org/">Schema.org Validator</a></p></td>
+<td><p>Full conformance against the <a class="reference external" href="http://Schema.org">Schema.org</a> specification</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Paste <code class="docutils literal notranslate"><span class="pre">https://akpetty.github.io/icey_ecosystems/</span></code> into either tool after
+deployment.</p>
 </section>
-<section id="geocodes-integration-setup">
-<h3>GeoCODES Integration Setup<a class="headerlink" href="#geocodes-integration-setup" title="Link to this heading">#</a></h3>
-<p>This project is integrated with the <a class="reference external" href="https://geocodes.earthcube.org/#/landing">GeoCODES portal</a> to make it discoverable in the EarthCube search interface. The metadata is embedded in the landing page using JSON-LD format following the Science on Schema (SOS) pattern.</p>
-<section id="steps-to-complete">
-<h4>Steps to Complete<a class="headerlink" href="#steps-to-complete" title="Link to this heading">#</a></h4>
-<ol class="arabic">
-<li><p><strong>Update the JSON-LD Metadata</strong></p>
-<p>Edit <code class="docutils literal notranslate"><span class="pre">index.html</span></code> and update the following fields:</p>
-<ul class="simple">
-<li><p>Replace <code class="docutils literal notranslate"><span class="pre">YOUR_USERNAME</span></code> with your actual GitHub username in the <code class="docutils literal notranslate"><span class="pre">url</span></code> field</p></li>
-<li><p>Update the <code class="docutils literal notranslate"><span class="pre">creator</span></code> name with your actual name</p></li>
-<li><p>Adjust the <code class="docutils literal notranslate"><span class="pre">datePublished</span></code> if needed</p></li>
-<li><p>Modify the <code class="docutils literal notranslate"><span class="pre">description</span></code> to match your specific research proposal</p></li>
-</ul>
-</li>
-<li><p><strong>Enable GitHub Pages</strong></p>
+<section id="maintaining-the-metadata">
+<h3>Maintaining the metadata<a class="headerlink" href="#maintaining-the-metadata" title="Link to this heading">#</a></h3>
+<p>When the project scope or datasets change:</p>
 <ol class="arabic simple">
-<li><p>Go to your repository on GitHub</p></li>
-<li><p>Navigate to <strong>Settings</strong> &gt; <strong>Pages</strong></p></li>
-<li><p>Under “Source”, select the branch (usually <code class="docutils literal notranslate"><span class="pre">main</span></code> or <code class="docutils literal notranslate"><span class="pre">master</span></code>)</p></li>
-<li><p>Select the folder (usually <code class="docutils literal notranslate"><span class="pre">/</span> <span class="pre">(root)</span></code>)</p></li>
-<li><p>Click <strong>Save</strong></p></li>
-<li><p>Your site will be available at <code class="docutils literal notranslate"><span class="pre">https://YOUR_USERNAME.github.io/icey_ecosystems/</span></code></p></li>
-</ol>
-</li>
-<li><p><strong>Update the Repository URL</strong></p>
-<p>After enabling GitHub Pages, update the <code class="docutils literal notranslate"><span class="pre">url</span></code> field in <code class="docutils literal notranslate"><span class="pre">index.html</span></code> to match your actual GitHub Pages URL.</p>
-</li>
-<li><p><strong>Register with GeoCODES</strong></p>
-<p>Once your landing page is live:</p>
-<ol class="arabic simple">
-<li><p>Visit the <a class="reference external" href="https://www.earthcube.org/geocodes">EarthCube Resource Registry</a></p></li>
-<li><p>Register your resource by providing your GitHub Pages URL</p></li>
-<li><p>The GeoCODES crawler will index your metadata</p></li>
-</ol>
-</li>
-<li><p><strong>Validate Your Metadata</strong></p>
-<p>Before submitting, validate your JSON-LD:</p>
-<ul class="simple">
-<li><p>Use <a class="reference external" href="https://search.google.com/test/rich-results">Google Rich Results Test</a></p></li>
-<li><p>Use <a class="reference external" href="https://validator.schema.org/">Schema.org Validator</a></p></li>
-</ul>
-</li>
+<li><p>Update the JSON-LD in both <code class="docutils literal notranslate"><span class="pre">index.html</span></code> and <code class="docutils literal notranslate"><span class="pre">_templates/layout.html</span></code> (keep
+them in sync).</p></li>
+<li><p>Bump <code class="docutils literal notranslate"><span class="pre">dateModified</span></code> to the current date.</p></li>
+<li><p>Re-run the validation tools above after deploying.</p></li>
+<li><p>If registering for the first time, submit the GitHub Pages URL at the
+<a class="reference external" href="https://www.earthcube.org/geocodes">EarthCube Resource Registry</a>.</p></li>
 </ol>
 </section>
-<section id="required-schema-org-properties">
-<h4>Required <a class="reference external" href="http://Schema.org">Schema.org</a> Properties<a class="headerlink" href="#required-schema-org-properties" title="Link to this heading">#</a></h4>
-<p>The JSON-LD in <code class="docutils literal notranslate"><span class="pre">index.html</span></code> includes the minimum required properties:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">&#64;context</span></code>: <a class="reference external" href="http://Schema.org">Schema.org</a> context</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">&#64;type</span></code>: Dataset (or SoftwareSourceCode if it’s primarily code)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code>: Project name</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">description</span></code>: Project description</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">url</span></code>: Landing page URL</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">keywords</span></code>: Relevant search terms</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">creator</span></code>: Author information</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">license</span></code>: License information</p></li>
-</ul>
-</section>
-<section id="additional-resources">
-<h4>Additional Resources<a class="headerlink" href="#additional-resources" title="Link to this heading">#</a></h4>
-<ul class="simple">
-<li><p><a class="reference external" href="https://geocodes.earthcube.org/#/landing">GeoCODES Portal</a></p></li>
-<li><p><a class="reference external" href="https://schema.org/">Schema.org Documentation</a></p></li>
-<li><p><a class="reference external" href="https://www.earthcube.org/geocodes">EarthCube GeoCODES Info</a></p></li>
-</ul>
-</section>
-</section>
-</section>
-<section id="usage">
-<h2>Usage<a class="headerlink" href="#usage" title="Link to this heading">#</a></h2>
-<p>[Add usage instructions here]</p>
 </section>
 <section id="license">
 <h2>License<a class="headerlink" href="#license" title="Link to this heading">#</a></h2>
-<p>[Add license information here]</p>
+<p>MIT — see the <a class="reference internal" href="content/0_home.html"><span class="std std-doc">home page</span></a> for details.</p>
 </section>
 </section>
 
@@ -696,27 +739,35 @@ ghp-import<span class="w"> </span>-n<span class="w"> </span>-p<span class="w"> <
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#datasets">Datasets</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis-workflow">Analysis workflow</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jupyter-book">Jupyter Book</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#geocodes-integration">GeoCODES Integration</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#uv-environment-setup">UV Environment Setup</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">Prerequisites</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-the-uv-environment">Creating the UV Environment</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-as-jupyter-kernel">Adding as Jupyter Kernel</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#building-the-jupyter-book">Building the Jupyter Book</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#deploying-to-github-pages">Deploying to GitHub Pages</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">Prerequisites</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#install-and-activate">Install and activate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#register-the-jupyter-kernel">Register the Jupyter kernel</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#running-commands-without-activating">Running commands without activating</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#geocodes-integration-setup">GeoCODES Integration Setup</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#steps-to-complete">Steps to Complete</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#required-schema-org-properties">Required Schema.org Properties</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#additional-resources">Additional Resources</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#managing-dependencies">Managing dependencies</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#add-a-package">Add a package</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#remove-a-package">Remove a package</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#update-all-packages-to-latest-compatible-versions">Update all packages to latest compatible versions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#update-a-single-package">Update a single package</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regenerate-the-lock-file-from-scratch">Regenerate the lock file from scratch</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#export-a-requirements-txt-for-collaborators-not-using-uv">Export a requirements.txt (for collaborators not using uv)</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#building-and-deploying-the-jupyter-book">Building and deploying the Jupyter Book</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discoverability-geocodes-integration">Discoverability &amp; GeoCODES Integration</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-we-embed">What we embed</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-tools">Validation tools</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#maintaining-the-metadata">Maintaining the metadata</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#usage">Usage</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#license">License</a></li>
 </ul>
   </nav></div>
