@@ -3,7 +3,7 @@ root: content/0_home
 parts:
 - caption: Analysis
   chapters:
-  - file: content/1_analysis
+  - file: content/1_gridded_par_estimation
 
 # More chapters will be added here in the future
 # - caption: Additional Analysis

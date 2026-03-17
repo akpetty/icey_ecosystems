@@ -1,14 +1,21 @@
-# ICEY ECOSYSTEMS: Arctic Sea Ice Light Transmission For Ecosystem Dynamics: Analysis with cloud-based ICESat-2 and ERA5 (Earthmover) data
+# ICEY ECOSYSTEMS: Arctic Sea Ice Light Transmission For Assessing Under-Ice Ecosystem Dynamics
+
+## Contributor
+**Alek Petty**<br>
+[![GitHub](https://badgen.net/badge/icon/github?icon=github&label)](https://github.com/akpetty) 
 
 ## Overview
 
-This Jupyter Book has been created to showcase new estimates of **under-ice photosynthetically active radiation (PAR)**
-across the Arctic Ocean by combining satellite-derived sea ice thickness observations with
-atmospheric reanalysis data. Light beneath sea ice is a primary control on
-ice-algal and under-ice phytoplankton productivity, yet it is difficult to
-observe directly at basin scale. This project bridges that gap by coupling
-gridded ICESat-2/NSESOSIM sea ice thickness and snow depth estimates with ERA5 cloud cover inside a
-physically based Beer-Lambert light transmission model.
+This Jupyter Book estimates **under-ice photosynthetically active radiation (PAR)**
+across the Arctic Ocean using cloud-based ICESat-2 sea ice thickness and snow
+depth data combined with ERA5 atmospheric reanalysis accessed via the
+[Earthmover Arraylake catalog](https://app.earthmover.io/marketplace/695bff20622fd82a1ec88780).
+
+Light beneath sea ice is a primary control on ice-algal and under-ice
+phytoplankton productivity, yet it is difficult to observe directly at basin
+scales. This project bridges that gap by coupling gridded ICESat-2/NESOSIM
+thickness and snow depth estimates with ERA5 cloud cover inside a physically
+based Beer-Lambert light transmission model.
 
 The work is part of an NSF-funded DeCODER (Data and Computing Opportunities for
 Discovery and Exploration Research) mini research proposal focused on
@@ -42,8 +49,8 @@ provides reliable thickness retrievals (SIC ≥ 0.5 by default).
 
 | Dataset | Variables used | Source | Access method |
 |---|---|---|---|
-| **ICESat-2 IS2SIT_SUMMER** (monthly, 25 km x 25 km North Polar Stereographic grid, Petty et al., 2025a, 2025b) | Sea ice thickness, snow depth, sea ice concentration, freeboard | NSIDC / NASA | S3 Zarr store (`s3://icesat-2-sea-ice-us-west-2/`) |
-| **ICESat-2 IS2SITMOGR4 V4** (monthly, 25 km x 25 km North Polar Stereographic grid, Petty et al., 2023, 2025c) | Same variables, winter months (Nov–Apr, 2018–2025) | NSIDC / NASA | S3 Zarr store |
+| **ICESat-2 IS2SIT_SUMMER** (monthly, 25 km x 25 km North Polar Stereographic grid, Petty et al., 2025a, 2025b) | Sea ice thickness, snow depth, sea ice concentration, freeboard | NSIDC / NASA | `s3://icesat-2-sea-ice-us-west-2/is2sit_summer/zarr/IS2SIT_SUMMER_01_201905-202108.zarr` |
+| **ICESat-2 IS2SITMOGR4 V4** (monthly, 25 km x 25 km North Polar Stereographic grid, Petty et al., 2023, 2025c) | Same variables, winter months (Nov–Apr, 2018–2025) | NSIDC / NASA | `s3://icesat-2-sea-ice-us-west-2/IS2SITMOGR4_V4/zarr/IS2SITMOGR4_V4_201811-202504.zarr` |
 | **ERA5 surface reanalysis** | Total cloud cover (`tcc`) | ECMWF via [Earthmover Arraylake catalog](https://app.earthmover.io/marketplace/695bff20622fd82a1ec88780) | `arraylake` Python client |
 
 All data are accessed directly from cloud storage — no local downloads are
@@ -52,9 +59,10 @@ notebook by combining ERA5 cloud cover with a computed TOA insolation field.
 
 ## Navigation
 
-- **[Analysis notebook](1_analysis)** — the main notebook: data loading,
-  Beer-Lambert model, multi-year comparison maps, high-transmission region
-  identification, and summary statistics.
+- **[Gridded PAR estimation](1_gridded_par_estimation)** — monthly gridded
+  ICESat-2 thickness + ERA5 cloud cover → Beer-Lambert under-ice PAR, with
+  multi-year comparison maps and summary statistics. A first demonstration using
+  readily available gridded inputs.
 
 ## Potential Future Directions
 

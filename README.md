@@ -17,8 +17,8 @@ organised as a Jupyter Book.
 
 | Dataset | Source | Access |
 |---|---|---|
-| ICESat-2 IS2SIT_SUMMER (monthly, 25 km EASE2) | NSIDC / NASA | S3 Zarr store |
-| ICESat-2 IS2SITMOGR4 V4 (monthly, 25 km EASE2) | NSIDC / NASA | S3 Zarr store |
+| ICESat-2 IS2SIT_SUMMER (monthly, 25 km EASE2) | NSIDC / NASA | `s3://icesat-2-sea-ice-us-west-2/is2sit_summer/zarr/IS2SIT_SUMMER_01_201905-202108.zarr` |
+| ICESat-2 IS2SITMOGR4 V4 (monthly, 25 km EASE2) | NSIDC / NASA | `s3://icesat-2-sea-ice-us-west-2/IS2SITMOGR4_V4/zarr/IS2SITMOGR4_V4_201811-202504.zarr` |
 | ERA5 surface reanalysis (total cloud cover) | ECMWF / [Earthmover catalog](https://app.earthmover.io/marketplace/695bff20622fd82a1ec88780) | `arraylake` client |
 
 All data are accessed directly from cloud storage — no local downloads required.
@@ -49,9 +49,9 @@ Open `_build/html/index.html` in your browser to view the book.
 The book contains:
 - **Home** (`content/0_home.md`) — project summary, dataset descriptions, and
   scientific approach
-- **Analysis notebook** (`content/1_analysis.ipynb`) — data loading, Beer-Lambert
-  model, multi-year comparison maps, high-transmission region identification, and
-  summary statistics
+- **Gridded PAR estimation** (`content/1_gridded_par_estimation.ipynb`) — monthly
+  gridded ICESat-2 thickness + ERA5 cloud cover → Beer-Lambert under-ice PAR,
+  with multi-year comparison maps and summary statistics
 - **Utilities** (`content/utils.py`) — reusable helper functions (TOA insolation,
   ERA5 regridding, Arctic map styling)
 
