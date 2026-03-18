@@ -216,6 +216,10 @@ When the project scope or datasets change:
 4. If registering for the first time, submit the GitHub Pages URL at the
    [EarthCube Resource Registry](https://www.earthcube.org/geocodes).
 
+## Funding
+
+This work was supported through the National Science Foundation award # 2209863.
+
 ## License
 
 MIT — see the [home page](content/0_home.md) for details.

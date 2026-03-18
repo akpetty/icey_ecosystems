@@ -17,10 +17,8 @@ scales. This project bridges that gap by coupling gridded ICESat-2/NESOSIM
 thickness and snow depth estimates with ERA5 cloud cover inside a physically
 based Beer-Lambert light transmission model.
 
-The work is part of an NSF-funded DeCODER (Data and Computing Opportunities for
-Discovery and Exploration Research) mini research proposal focused on
-understanding ecological systems in ice environments, and contributes to the
-EarthCube GeoCODES initiative. A key additional focus is thus on incorporating appropriate schema into the html files to increase discoverability. 
+The work is part of an NSF-funded DeCODER (Democratized Cyberinfrastructure for Open Discovery to Enable Research) mini research proposal focused on
+understanding ecological systems in ice environments, and contributes to the EarthCube GeoCODES initiative. A key additional focus is thus on incorporating appropriate schema into the html files to increase discoverability. 
 
 ## Scientific Approach
 
@@ -116,6 +114,10 @@ Petty, A. A., N. Kurtz, R. Kwok, T. Markus, T. A. Neumann, N. Keeney and A. Caba
 Petty A. A., N. Keeney, A. Cabaj, P. Kushner, M. Bagnardi (2023), Winter Arctic sea ice thickness from ICESat-2: upgrades to freeboard and snow loading estimates and an assessment of the first three winters of data collection, The Cryosphere, 17, 127–156, doi: 10.5194/tc-17-127-2023.
 
 McHenry K, Bobak M, Coakley K, Fils D, Gatzke L, Zhang B, Kooper R, Richard S, Valentine D, Zaslavsky I, Shepherd, A & Lingerfelt E. (2021). GeoCODES. EarthCube. https://geocodes.earthcube.org.
+
+## Funding
+
+This work was supported through the National Science Foundation award # 2209863.
 
 ## License
 
